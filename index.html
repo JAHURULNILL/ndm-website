@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NDM — Nill Download Manager | Fast, IDM-style downloads for Linux</title>
+<meta name="description" content="NDM is a fast, smooth, IDM-style download manager for Linux: multi-connection downloads, browser integration that catches every download, video from 1,700+ sites, silent setup and in-app updates.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%232f7fd1'/><stop offset='1' stop-color='%231f6fd0'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><path d='M50 18v38m0 0L33 39m17 17 17-17' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/><rect x='26' y='70' width='48' height='9' rx='4.5' fill='white'/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top">
+    <span class="brand-mark">⬇</span>
+    <span class="brand-name">NDM</span>
+    <span class="brand-sub">Nill Download Manager</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://github.com/JAHURULNILL/ndm" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+  <a class="nav-cta dl-link" href="#download">Download</a>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" id="download">
+    <div class="hero-copy">
+      <div class="badge"><span class="dot"></span><span id="versionBadge">Version 1.5.1</span><span class="badge-sep">·</span><span>Linux</span></div>
+      <h1>Downloads at full speed.<br><span class="grad">Zero babysitting.</span></h1>
+      <p class="lede">NDM is an IDM-style download manager for Linux — multi-connection speed, a browser extension that catches <em>every</em> download (files and videos, even login-gated ones), and a video engine that installs itself silently in the background.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v1.5.1/NDM_1.5.1_amd64.deb">
+          <span class="btn-ico">⬇</span>
+          <span>Download for Linux<small id="dlMeta">.deb · v1.5.1 · 3.7 MB</small></span>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/JAHURULNILL/ndm/releases/download/v1.5.1/ndm-extension-1.5.1.zip">
+          <span class="btn-ico">🧩</span>
+          <span>Browser extension<small>Chrome · Brave · Edge · Firefox</small></span>
+        </a>
+      </div>
+      <p class="install-line">Install: <code>sudo apt install ./NDM_<span class="ver">1.5.1</span>_amd64.deb</code> — one command, everything else sets itself up.</p>
+      <div class="hero-points">
+        <span>✓ No account</span><span>✓ No ads</span><span>✓ Free &amp; open source</span><span>✓ Windows build in progress</span>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="video-frame">
+        <video autoplay muted loop playsinline preload="auto"
+               poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232f7fd1'/%3E%3Cstop offset='1' stop-color='%231f6fd0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1280' height='720' fill='%23eceff2'/%3E%3Crect x='490' y='210' width='300' height='300' rx='64' fill='url(%23g)'/%3E%3Cpath d='M640 290v150m0 0-52-52m52 52 52-52' stroke='white' stroke-width='30' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ctext x='640' y='580' font-family='sans-serif' font-size='44' font-weight='700' fill='%231f262d' text-anchor='middle'%3ENDM%3C/text%3E%3C/svg%3E"
+               src="https://github.com/JAHURULNILL/ndm/releases/download/v1.5.1/ndm-demo.mp4">
+        </video>
+      </div>
+      <p class="video-cap">NDM in action — click, download, finished. (Live product animation)</p>
+    </div>
+  </section>
+
+  <!-- WHATS NEW -->
+  <section class="whatsnew">
+    <div class="wn-card">
+      <span class="wn-tag">What's new</span>
+      <p id="releaseNotes">NDM 1.5.1 — small privacy fix on top of 1.5.0 (menus, silent background setup, in-app updates). The install counter is now owner-private: nothing in the app shows it.</p>
+      <span class="wn-live" id="liveState">Showing the latest release info — this page updates itself from the live release feed.</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <h2>Everything a download manager should be</h2>
+    <p class="section-sub">Clean like IDM, powerful like nothing else on Linux.</p>
+    <div class="grid">
+      <article class="card"><div class="card-ico">🚀</div><h3>Multi-connection speed</h3><p>Files are split into parallel connections and written in place — no slow merge step. Watch every connection's progress block by block, with live speed, ETA and a global speed limiter.</p></article>
+      <article class="card"><div class="card-ico">🧲</div><h3>Catches every browser download</h3><p>Click a download in your browser and NDM's dialog opens instead — files, apps, documents, even extension-less links. Login-gated files work too: NDM uses your browser's own session, exactly like IDM.</p></article>
+      <article class="card"><div class="card-ico">🎬</div><h3>Video from 1,700+ sites</h3><p>A download pill sits right on the video player — YouTube, Facebook (even private posts), and 1,700+ more sites. Pick your quality up to 4K, or grab audio-only MP3.</p></article>
+      <article class="card"><div class="card-ico">🤫</div><h3>Silent auto-setup</h3><p>The 3.7 MB installer is all you download. The video engine fetches itself in the background on first launch, verified by SHA-256 — you never see a setup wizard.</p></article>
+      <article class="card"><div class="card-ico">🔄</div><h3>Resume that actually works</h3><p>Power cut? Crash? Restart? NDM restores your list and resumes byte-exactly — including downloads that needed a login session. Expired link? Refresh the address and continue.</p></article>
+      <article class="card"><div class="card-ico">⬆️</div><h3>In-app updates</h3><p>When a new version ships, NDM pops up and updates itself in one click. No hunting for installers, no manual reinstalls — you always run the latest.</p></article>
+      <article class="card"><div class="card-ico">🕸️</div><h3>Site Grabber</h3><p>Point NDM at a page and harvest every file on it — images, documents, archives — filtered by type, saved in one go.</p></article>
+      <article class="card"><div class="card-ico">🗓️</div><h3>Scheduler &amp; queues</h3><p>Start downloads at a set time, cap simultaneous downloads, auto-resume on launch, and run batch imports of whole link lists.</p></article>
+      <article class="card"><div class="card-ico">🎨</div><h3>Light &amp; dark, glass-smooth</h3><p>A clean light theme by default with a one-click dark mode, categories sidebar, and sorting by name, date, size or status.</p></article>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="how" id="how">
+    <h2>Up and running in a minute</h2>
+    <div class="steps">
+      <div class="step"><span class="step-n">1</span><h3>Install the .deb</h3><p>Download the tiny installer above and run one <code>apt install</code> command. NDM appears in your app menu instantly.</p></div>
+      <div class="step"><span class="step-n">2</span><h3>It sets itself up</h3><p>On first launch, NDM quietly downloads its video engine in the background — hash-verified, no clicks, no wizards.</p></div>
+      <div class="step"><span class="step-n">3</span><h3>Add the extension</h3><p>Load the extension in your browser once. From then on, every browser download and video flows through NDM automatically.</p></div>
+    </div>
+  </section>
+
+  <!-- REQUIREMENTS + FAQ -->
+  <section class="faq" id="faq">
+    <h2>Good to know</h2>
+    <div class="faq-grid">
+      <div class="faq-col">
+        <h3>Requirements</h3>
+        <ul class="req">
+          <li>Ubuntu, Zorin OS, Linux Mint or any Debian-based distro (x86-64; ARM64 supported for the video engine)</li>
+          <li>WebKitGTK 4.1 and GTK 3 — installed automatically as dependencies</li>
+          <li>ffmpeg — also handled automatically by the package</li>
+          <li>Internet on first launch for the one-time video-engine setup (~83 MB, background)</li>
+        </ul>
+        <h3>Windows?</h3>
+        <p class="req-note">A Windows portable build is in progress and will appear on the <a href="https://github.com/JAHURULNILL/ndm/releases" target="_blank" rel="noopener">releases page</a> when ready.</p>
+      </div>
+      <div class="faq-col">
+        <details open><summary>Is NDM really free?</summary><p>Yes — free and open source, no ads, no accounts, no tracking. The app sends exactly one anonymous install ping so the developer can count installations; nothing else ever leaves your machine.</p></details>
+        <details><summary>How does the browser catch work?</summary><p>The NDM extension notices downloads and video pages in Chrome, Brave, Edge, Chromium and Firefox, and hands them to the app through a tiny native bridge — the same trick IDM uses. Your browser cookies are captured only for the link you clicked, stored locally, and deleted with the entry.</p></details>
+        <details><summary>Can it resume a failed download?</summary><p>Yes — if the server supports range requests (most do), NDM resumes from the exact byte, even after a restart, and even for login-gated files whose session it saved.</p></details>
+        <details><summary>Why is the installer only 3.7 MB?</summary><p>IDM-style design: the app itself is small and native (Rust). The video engine (yt-dlp + deno) is fetched once, in the background, and verified against pinned SHA-256 hashes before it can run.</p></details>
+        <details><summary>How do updates work?</summary><p>NDM checks the release feed on launch. A normal update is one click; if a release is marked mandatory, older versions pause new downloads until updated — so security fixes reach everyone.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <h2>Ready when you are.</h2>
+    <p>One small download. Every download after that, handled.</p>
+    <a class="btn btn-primary btn-big dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v1.5.1/NDM_1.5.1_amd64.deb">⬇ Download NDM <span class="ver-label">v1.5.1</span></a>
+  </section>
+</main>
+
+<footer>
+  <span>NDM — Nill Download Manager · Built with Rust + Tauri 2</span>
+  <span><a href="https://github.com/JAHURULNILL/ndm" target="_blank" rel="noopener">GitHub</a> · <a href="https://github.com/JAHURULNILL/ndm/releases" target="_blank" rel="noopener">All releases</a></span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
