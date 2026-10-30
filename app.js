@@ -24,9 +24,11 @@
       }
       if (info.deb_url) {
         document.querySelectorAll('.dl-link').forEach(function (a) { a.href = info.deb_url; });
+        var extUrl = 'https://github.com/JAHURULNILL/ndm/releases/download/v' + v + '/ndm-extension-' + v + '.zip';
+        document.querySelectorAll('.ext-link').forEach(function (a) { a.href = extUrl; });
         var file = info.deb_url.split('/').pop() || '';
         var meta = document.getElementById('dlMeta');
-        if (meta && file) meta.textContent = '.deb · v' + v + ' · 3.7 MB';
+        if (meta && file) meta.textContent = '.deb · v' + v;
         var cmd = document.getElementById('installCmd');
         if (cmd && file) cmd.textContent = 'sudo apt install ./' + file;
       }
