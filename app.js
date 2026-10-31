@@ -16,12 +16,21 @@
       if (badge) badge.textContent = 'v' + v;
       var navVer = document.getElementById('navVer');
       if (navVer) navVer.textContent = 'v' + v;
-      var verLabel = document.querySelector('.ver-label');
-      if (verLabel) verLabel.textContent = 'v' + v;
+      document.querySelectorAll('.ver-label').forEach(function (el) { el.textContent = 'v' + v; });
       if (info.notes) {
         var notes = document.getElementById('releaseNotes');
         if (notes) notes.textContent = info.notes;
       }
+      if (info.win_setup_url) {
+        document.querySelectorAll('.win-dl-link').forEach(function (a) { a.href = info.win_setup_url; });
+        var winMeta = document.getElementById('winMeta');
+        if (winMeta) winMeta.textContent = 'Setup .exe · v' + v;
+      }
+      if (info.win_url) {
+        document.querySelectorAll('.win-port-link').forEach(function (a) { a.href = info.win_url; });
+      }
+      var linuxPort = 'https://github.com/JAHURULNILL/ndm/releases/download/v' + v + '/NDM_' + v + '_Linux_Portable.tar.xz';
+      document.querySelectorAll('.linux-port-link').forEach(function (a) { a.href = linuxPort; });
       if (info.deb_url) {
         document.querySelectorAll('.dl-link').forEach(function (a) { a.href = info.deb_url; });
         var extUrl = 'https://github.com/JAHURULNILL/ndm/releases/download/v' + v + '/ndm-extension-' + v + '.zip';

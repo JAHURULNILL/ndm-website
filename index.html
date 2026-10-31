@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nill Download Manager | Fast, IDM-style downloads for Linux</title>
-<meta name="description" content="NDM is a fast, smooth, IDM-style download manager for Linux: multi-connection downloads, a browser extension that catches every download, video from 1,700+ sites, silent setup and in-app updates.">
+<title>Nill Download Manager | Fast, IDM-style downloads for Windows & Linux</title>
+<meta name="description" content="NDM is a fast, smooth, IDM-style download manager for Windows and Linux: multi-connection downloads, a browser extension that catches every download, video from 1,700+ sites, and one-click in-app updates.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%232f7fd1'/><stop offset='1' stop-color='%231f6fd0'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><path d='M50 18v38m0 0L33 39m17 17 17-17' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/><rect x='26' y='70' width='48' height='9' rx='4.5' fill='white'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,33 +29,53 @@
     <a href="#faq">FAQ</a>
     <a href="https://github.com/JAHURULNILL/ndm" target="_blank" rel="noopener">GitHub</a>
   </nav>
-  <span class="nav-ver" id="navVer">v1.9.2</span>
+  <span class="nav-ver" id="navVer">v2.0.0</span>
 </header>
 
 <main id="top">
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge reveal"><span class="dot"></span>Latest release <b id="versionBadge">v1.9.2</b><span class="sep"></span>Linux</div>
+    <div class="hero-badge reveal"><span class="dot"></span>Latest release <b id="versionBadge">v2.0.0</b><span class="sep"></span>Windows · Linux</div>
     <h1 class="reveal d1">Every download,<br>at full speed.</h1>
-    <p class="lede reveal d2">NDM is an IDM-style download manager for Linux. It catches downloads straight from your browser, pulls files over parallel connections, and saves video from 1,700+ sites — while its video engine installs itself, silently, in the background.</p>
+    <p class="lede reveal d2">NDM is an IDM-style download manager for Windows and Linux. It catches downloads straight from your browser, pulls files over parallel connections, and saves video from 1,700+ sites — and when a new version lands, it updates itself in one click.</p>
+    <div class="dl-panel reveal d3">
+      <div class="dl-card">
+        <div class="dl-os">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3zM11.6 4.2 21 3v8.5h-9.4zM3 12.5h7.5v7.1L3 18.5zM11.6 12.5H21V21l-9.4-1.3z"/></svg>
+          <h3>Windows</h3><span>10 / 11 · 64-bit</span>
+        </div>
+        <a class="btn btn-primary win-dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.0.0/NDM_2.0.0_x64-setup.exe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg>
+          <span>Download for Windows<small id="winMeta">Setup .exe · v2.0.0 · 101 MB</small></span>
+        </a>
+        <p class="dl-alt">Per-user install, no admin rights needed.<br>Prefer no install? <a class="win-port-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.0.0/NDM_2.0.0_Windows_Portable.zip">Portable ZIP · 134 MB</a></p>
+      </div>
+      <div class="dl-card">
+        <div class="dl-os">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg>
+          <h3>Linux</h3><span>Debian family · 64-bit</span>
+        </div>
+        <a class="btn btn-primary dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.0.0/NDM_2.0.0_amd64.deb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg>
+          <span>Download for Linux<small id="dlMeta">.deb · v2.0.0 · 5.13 MB</small></span>
+        </a>
+        <p class="dl-alt">Ubuntu, Zorin OS, Mint and other Debian-based distros.<br>Any distro: <a class="linux-port-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.0.0/NDM_2.0.0_Linux_Portable.tar.xz">Portable tarball · 122 MB</a></p>
+      </div>
+    </div>
     <div class="cta-row reveal d3">
-      <a class="btn btn-primary dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v1.9.2/NDM_1.9.2_amd64.deb">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg>
-        <span>Download for Linux<small id="dlMeta">.deb · v1.9.2 · 5.13 MB</small></span>
-      </a>
-      <a class="btn btn-ghost ext-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v1.9.2/ndm-extension-1.9.2.zip">
+      <a class="btn btn-ghost ext-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.0.0/ndm-extension-2.0.0.zip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7V5a2 2 0 1 0-4 0v2H7a2 2 0 0 0-2 2v3H3.5a2.5 2.5 0 0 0 0 5H5v2a2 2 0 0 0 2 2h3v-1.5a2.5 2.5 0 0 1 5 0V21h2a2 2 0 0 0 2-2v-3h1.5a2.5 2.5 0 0 0 0-5H19V9a2 2 0 0 0-2-2h-3z"/></svg>
         <span>Browser extension<small>Chrome · Brave · Edge · Firefox</small></span>
       </a>
     </div>
     <div class="install reveal d4">
-      <code id="installCmd">sudo apt install ./NDM_1.9.2_amd64.deb</code>
+      <code id="installCmd">sudo apt install ./NDM_2.0.0_amd64.deb</code>
       <button class="copy-btn" id="copyBtn" type="button" aria-label="Copy install command">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         <span>Copy</span>
       </button>
     </div>
-    <p class="micro reveal d4">No account · No ads · Free &amp; open source · Windows build in progress</p>
+    <p class="micro reveal d4">No account · No ads · Free &amp; open source · Updates itself</p>
   </section>
 
   <!-- STAGE -->
@@ -83,7 +103,7 @@
   <!-- WHATS NEW -->
   <section class="whatsnew reveal">
     <span class="wn-tag">What's new</span>
-    <p id="releaseNotes">Nill Download Manager 1.9.2 — the main window is rebuilt in Internet Download Manager's classic layout with a polished one-colour finish, and the browser flyout is now a full IDM-style download dialog: the video thumbnail and per-quality file sizes are back, with labelled status rows, an expandable connections detail view, a Resume capability line, and a working per-file Speed Limiter tab. Downloads start faster, a file deleted from the list no longer returns after a restart, every file carries a Last Try Date, and a resumed download shows live progress again — every change verified in live use and a full audit.</p>
+    <p id="releaseNotes">Nill Download Manager 2.0.0 — a ground-up audit release: the whole app and the browser extension were used end-to-end and read line by line, and what the audit found is fixed here. A path collision that could overwrite an existing file is closed, so a download can no longer lose data; drag and drop onto the main window and the Drop Basket works; transfer rate and time-left figures are the true measured values; downloads are routed into categories truthfully and your own custom categories appear in the categories tree. On Windows, NDM now updates itself from inside the app — one click on Update downloads, verifies and installs the new version and relaunches it, and an update can be marked required so older copies cannot keep downloading until they update — and there is a proper Windows installer (per-user, no administrator rights needed) alongside the portable build, plus a matching update check on Linux. Every fix was verified in live use.</p>
     <span class="wn-live" id="liveState">This page reads the live release feed — it updates itself when a new version ships.</span>
   </section>
 
@@ -167,7 +187,7 @@
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8.5 8.5 0 1 1 10.5 4a7 7 0 0 0 9.5 9.5z"/></svg></span>
           <h3>Silent setup, light &amp; dark</h3>
         </div>
-        <p>The 3.7 MB installer is all you fetch — the video engine downloads itself in the background, SHA-256 verified. Light glass theme by default, one-click dark mode.</p>
+        <p>The installer is all you fetch — the video engine downloads itself in the background, SHA-256 verified. Light glass theme by default, one-click dark mode.</p>
       </article>
     </div>
   </section>
@@ -183,7 +203,7 @@
       <div class="stats">
         <div><b>24</b><span>parallel streams</span></div>
         <div><b>1,700+</b><span>video sites supported</span></div>
-        <div><b>3.7 MB</b><span>installer — engine self-installs</span></div>
+        <div><b>Win + Linux</b><span>one app, both platforms</span></div>
         <div><b>0</b><span>setup wizards, ever</span></div>
       </div>
     </div>
@@ -195,8 +215,8 @@
     <div class="steps">
       <div class="step reveal">
         <span class="step-n">1</span>
-        <h3>Install the .deb</h3>
-        <p>One <code>apt install</code> command. NDM appears in your app menu immediately, dependencies handled by the package.</p>
+        <h3>Install it</h3>
+        <p>Windows: run the setup — per-user, no admin prompt. Linux: one <code>apt install</code> command. NDM appears in your app menu immediately.</p>
       </div>
       <div class="step reveal d1">
         <span class="step-n">2</span>
@@ -219,20 +239,21 @@
         <div class="req-card">
           <h3>Requirements</h3>
           <ul class="req">
+            <li>Windows 10 or 11 (64-bit) — installer or portable</li>
             <li>Ubuntu, Zorin OS, Linux Mint or any Debian-based distro (x86-64; ARM64 supported for the video engine)</li>
             <li>WebKitGTK 4.1 and GTK 3 — installed automatically as dependencies</li>
             <li>ffmpeg — also handled automatically by the package</li>
             <li>Internet on first launch for the one-time video-engine setup (~83 MB, in the background)</li>
           </ul>
           <h3>Windows?</h3>
-          <p>A portable Windows build is in progress and will appear on the <a href="https://github.com/JAHURULNILL/ndm/releases" target="_blank" rel="noopener">releases page</a> when it is ready.</p>
+          <p>Fully supported since 2.0 — a per-user installer (no admin rights needed) and a portable ZIP, with the same features, the same browser extension, and the same one-click self-update as Linux.</p>
         </div>
       </div>
       <div class="faq-col reveal d1">
         <details open><summary>Is NDM really free?</summary><p>Yes — free and open source, no ads, no accounts, no tracking. The app sends exactly one anonymous install ping so the developer can count installations; nothing else ever leaves your machine.</p></details>
         <details><summary>How does the browser catch work?</summary><p>The extension notices downloads and video pages in your browser and hands them to the app through a small native bridge — the same approach IDM uses. Cookies are captured only for the link you clicked, stored locally on your machine, and deleted together with the entry.</p></details>
         <details><summary>Can it resume a failed download?</summary><p>Yes — where the server supports range requests (most do), NDM resumes from the exact byte, even after a restart, and even for login-gated files whose session it saved.</p></details>
-        <details><summary>Why is the installer only 3.7 MB?</summary><p>The app itself is small and native (Rust + Tauri). The video engine — yt-dlp and deno — is fetched once, in the background, and verified against pinned SHA-256 hashes before it can run.</p></details>
+        <details><summary>Why is the Linux package only about 5 MB?</summary><p>The app itself is small and native (Rust + Tauri). On Linux the video engine — yt-dlp and deno — is fetched once, in the background, and verified against pinned SHA-256 hashes before it can run. The Windows setup (101 MB) goes the other way and bundles everything, so it works fully offline from the first launch.</p></details>
         <details><summary>How do updates work?</summary><p>NDM checks the release feed on launch. A normal update is one click. If a release is marked mandatory, older versions pause new downloads until updated, so important fixes reach everyone.</p></details>
       </div>
     </div>
@@ -243,9 +264,13 @@
     <div class="final-card">
       <h2>Ready when you are.</h2>
       <p>One small download. Every download after that, handled.</p>
-      <a class="btn btn-primary btn-big dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v1.9.2/NDM_1.9.2_amd64.deb">
+      <a class="btn btn-primary btn-big win-dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.0.0/NDM_2.0.0_x64-setup.exe">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg>
-        <span>Download NDM <span class="ver-label">v1.9.2</span></span>
+        <span>Download for Windows <span class="ver-label">v2.0.0</span></span>
+      </a>
+      <a class="btn btn-ghost btn-big dl-link" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.0.0/NDM_2.0.0_amd64.deb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg>
+        <span>Download for Linux</span>
       </a>
     </div>
   </section>

@@ -386,3 +386,27 @@ footer {
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Download panel — one card per platform (2.0) */
+.dl-panel {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  max-width: 880px; margin: 34px auto 6px; text-align: left;
+}
+.dl-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line); border-radius: var(--r-md);
+  box-shadow: var(--shadow-card); padding: 22px 22px 18px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.dl-os { display: flex; align-items: baseline; gap: 10px; color: var(--ink); }
+.dl-os svg { width: 21px; height: 21px; align-self: center; color: var(--blue); flex-shrink: 0; }
+.dl-os h3 { font-family: var(--font-d); font-size: 21px; font-weight: 800; margin: 0; letter-spacing: -0.01em; }
+.dl-os span { color: var(--dim); font-size: 13px; font-weight: 500; }
+.dl-card .btn { justify-content: flex-start; width: 100%; }
+.dl-alt { margin: 0; color: var(--ink2); font-size: 14px; line-height: 1.55; }
+.dl-alt a { font-weight: 600; white-space: nowrap; }
+.final-card .btn-big { margin: 6px 4px 0; }
+@media (max-width: 720px) {
+  .dl-panel { grid-template-columns: 1fr; }
+}
