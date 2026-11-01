@@ -121,6 +121,7 @@ h1, h2, h3 { font-family: var(--font-d); line-height: 1.14; letter-spacing: -.01
 .os-alt { font-size: 13.5px; color: var(--dim); margin-top: 14px; line-height: 1.55; }
 .os-alt a { font-weight: 600; text-decoration: none; }
 .os-alt a:hover { text-decoration: underline; }
+.hero-ext { display: flex; width: 100%; max-width: 860px; margin: 16px auto 0; justify-content: center; }
 
 .hero-frame { position: relative; max-width: 980px; margin: 58px auto 0; }
 .frame-glow {
