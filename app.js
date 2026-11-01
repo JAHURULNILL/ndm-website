@@ -31,6 +31,7 @@
     set('.win-setup-link', info.win_setup_url || base + 'NDM_' + v + '_x64-setup.exe');
     set('.win-port-link', info.win_url || base + 'NDM_' + v + '_Windows_Portable.zip');
     set('.deb-link', info.deb_url || base + 'NDM_' + v + '_amd64.deb');
+    set('.linux-port-link', info.linux_url || base + 'NDM_' + v + '_Linux_Portable.tar.xz');
     set('.ext-link', base + 'ndm-extension-' + v + '.zip');
     var deb = info.deb_url || base + 'NDM_' + v + '_amd64.deb';
     var cmd = document.getElementById('installCmd');
