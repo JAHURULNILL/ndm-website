@@ -1,56 +1,59 @@
 /* NDM website behaviour:
-   1. Live release feed — version, notes, download links and the install
-      command update themselves from GitHub's release.json (the HTML
-      values are the offline fallback).
-   2. One orchestrated reveal system (IntersectionObserver).
+   1. Live release feed — version labels and download links refresh
+      themselves from the app's update feed. The feed is tried at its
+      canonical address first, then at the mirror the app itself uses
+      as a fallback; the static HTML values (current release) stay if
+      both are unreachable.
+   2. One reveal-on-scroll system (IntersectionObserver).
    3. Copy-the-install-command button. */
 (function () {
-  var FEED = 'https://raw.githubusercontent.com/JAHURULNILL/ndm/main/release.json';
+  var FEEDS = [
+    'https://github.com/JAHURULNILL/ndm/releases/latest/download/release.json',
+    'https://raw.githubusercontent.com/JAHURULNILL/ndm/main/release.json'
+  ];
 
-  fetch(FEED, {cache: 'no-store'})
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (info) {
-      if (!info || !info.version) return;
-      var v = String(info.version);
-      var badge = document.getElementById('versionBadge');
-      if (badge) badge.textContent = 'v' + v;
-      var navVer = document.getElementById('navVer');
-      if (navVer) navVer.textContent = 'v' + v;
-      document.querySelectorAll('.ver-label').forEach(function (el) { el.textContent = 'v' + v; });
-      if (info.notes) {
-        var notes = document.getElementById('releaseNotes');
-        if (notes) notes.textContent = info.notes;
-      }
-      if (info.win_setup_url) {
-        document.querySelectorAll('.win-dl-link').forEach(function (a) { a.href = info.win_setup_url; });
-        var winMeta = document.getElementById('winMeta');
-        if (winMeta) winMeta.textContent = 'Setup .exe · v' + v;
-      }
-      if (info.win_url) {
-        document.querySelectorAll('.win-port-link').forEach(function (a) { a.href = info.win_url; });
-      }
-      var linuxPort = 'https://github.com/JAHURULNILL/ndm/releases/download/v' + v + '/NDM_' + v + '_Linux_Portable.tar.xz';
-      document.querySelectorAll('.linux-port-link').forEach(function (a) { a.href = linuxPort; });
-      if (info.deb_url) {
-        document.querySelectorAll('.dl-link').forEach(function (a) { a.href = info.deb_url; });
-        var extUrl = 'https://github.com/JAHURULNILL/ndm/releases/download/v' + v + '/ndm-extension-' + v + '.zip';
-        document.querySelectorAll('.ext-link').forEach(function (a) { a.href = extUrl; });
-        var file = info.deb_url.split('/').pop() || '';
-        var meta = document.getElementById('dlMeta');
-        if (meta && file) meta.textContent = '.deb · v' + v;
-        var cmd = document.getElementById('installCmd');
-        if (cmd && file) cmd.textContent = 'sudo apt install ./' + file;
-      }
-      var live = document.getElementById('liveState');
-      if (live) live.textContent = 'Live — showing release v' + v + ' from the official feed.';
-    })
-    .catch(function () { /* fallback content stays */ });
+  function applyFeed(info) {
+    if (!info || !info.version) return;
+    var v = String(info.version);
+    document.querySelectorAll('[data-version]').forEach(function (el) {
+      el.textContent = 'v' + v;
+    });
+    document.querySelectorAll('.meta').forEach(function (el) {
+      var fmt = el.getAttribute('data-format');
+      var size = el.getAttribute('data-size');
+      if (fmt) el.textContent = fmt + ' · v' + v + (size ? ' · ' + size : '');
+    });
+    var base = 'https://github.com/JAHURULNILL/ndm/releases/download/v' + v + '/';
+    var set = function (sel, url) {
+      if (!url) return;
+      document.querySelectorAll(sel).forEach(function (a) { a.href = url; });
+    };
+    set('.win-setup-link', info.win_setup_url || base + 'NDM_' + v + '_x64-setup.exe');
+    set('.win-port-link', info.win_url || base + 'NDM_' + v + '_Windows_Portable.zip');
+    set('.deb-link', info.deb_url || base + 'NDM_' + v + '_amd64.deb');
+    set('.ext-link', base + 'ndm-extension-' + v + '.zip');
+    var deb = info.deb_url || base + 'NDM_' + v + '_amd64.deb';
+    var cmd = document.getElementById('installCmd');
+    if (cmd) cmd.textContent = 'sudo apt install ./' + deb.split('/').pop();
+  }
+
+  function tryFeed(i) {
+    if (i >= FEEDS.length) return;
+    fetch(FEEDS[i], { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (info) {
+        if (info && info.version) applyFeed(info);
+        else tryFeed(i + 1);
+      })
+      .catch(function () { tryFeed(i + 1); });
+  }
+  tryFeed(0);
 
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
-  }, {threshold: 0.12});
+  }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
 
   var copyBtn = document.getElementById('copyBtn');
