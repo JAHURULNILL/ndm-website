@@ -124,6 +124,8 @@ button, .btn, a { touch-action: manipulation; }
 .btn:active { transform: translateY(1px); }
 .btn-alt { background: var(--surface); color: var(--ink); }
 .btn-alt:hover { background: var(--field); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); padding: 13.5px 22.5px; }
+.btn-ghost:hover { background: var(--surface); }
 
 .stage {
   position: absolute;
@@ -441,6 +443,7 @@ button, .btn, a { touch-action: manipulation; }
 .cta-btn:hover { filter: brightness(0.93); }
 .cta-btn-a { background: var(--accent); color: var(--accent-ink); }
 .cta-btn-b { background: var(--field); color: var(--ink); }
+.cta-btn-c { background: var(--surface); color: var(--ink); }
 .cta-after { margin: 30px 0 0; color: var(--muted); max-width: 52ch; }
 
 /* ---------- footer ---------- */
