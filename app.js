@@ -1,74 +1,63 @@
-/* NDM website behaviour (redesign v2):
+/* NDM website behaviour (The product performs):
    1. Live release feed — version labels, download hrefs and the feed
       hashes refresh from the app's own update feed. The extension
       link and hash stay static: the feed publishes only ext_sha256.
    2. Platform-aware primary buttons (Linux visitors get the .deb first).
    3. The video picker: typed address, example videos, selectable formats.
-   4. Reveal + shutter animation on scroll.
+   4. Reveal on scroll — armed by this script, so content is never
+      hidden if the script or the observer fails.
+   5. How it runs: the pinned stage crossfades to the active step.
+   6. The footer clock: Dhaka local time.
    No dependencies. */
 (function () {
   'use strict';
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var FEED_URL = 'https://github.com/JAHURULNILL/ndm/releases/latest/download/release.json';
 
-  /* ---------- reveal + shutter ---------- */
-  var revealEls = document.querySelectorAll('.rv, .shutter');
-  if (reduced) {
-    revealEls.forEach(function (el) { el.classList.add('in'); });
-  } else {
-    var pending = [];
+  /* ---------- reveal ---------- */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  if (!reduced && 'IntersectionObserver' in window) {
     revealEls.forEach(function (el, i) {
-      if (el.classList.contains('rv')) {
-        el.style.setProperty('--d', ((i % 3) * 80) + 'ms');
-      }
-      pending.push(el);
+      el.style.setProperty('--d', ((i % 3) * 80) + 'ms');
+      el.classList.add('armed');
     });
-    function reveal(el) {
-      el.classList.add('in');
-      var k = pending.indexOf(el);
-      if (k !== -1) { pending.splice(k, 1); }
-    }
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            reveal(e.target);
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-      pending.slice().forEach(function (el) { io.observe(el); });
-    }
-    /* Fallback for environments where observer callbacks never arrive
-       (no frames are produced): content must never stay hidden. */
-    var ticking = false;
-    function checkPending() {
-      ticking = false;
-      var limit = window.innerHeight * 0.94;
-      pending.slice().forEach(function (el) {
-        if (el.getBoundingClientRect().top < limit) { reveal(el); }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
       });
-    }
-    window.addEventListener('scroll', function () {
-      if (!ticking) { ticking = true; requestAnimationFrame(checkPending); }
-    }, { passive: true });
-    checkPending();
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+    /* Safety: nothing stays hidden, whatever the observer does. */
+    setTimeout(function () {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    }, 3000);
   }
 
-  /* ---------- hero video: reduced motion pauses ---------- */
-  var heroVideo = document.querySelector('.hero-name video');
-  if (heroVideo) {
-    /* Start inside the app footage, not the recording's first frames. */
-    heroVideo.addEventListener('loadedmetadata', function () {
-      try { if (heroVideo.duration > 12) { heroVideo.currentTime = 6; } } catch (e) {}
-    });
-    if (reduced) {
-      heroVideo.removeAttribute('autoplay');
-      heroVideo.pause();
-    } else {
-      var p = heroVideo.play();
-      if (p && p.catch) { p.catch(function () {}); }
-    }
+  /* ---------- how it runs: pinned stage states ---------- */
+  var steps = Array.prototype.slice.call(document.querySelectorAll('[data-how-step]'));
+  var himgs = Array.prototype.slice.call(document.querySelectorAll('[data-how-img]'));
+  var hcap = document.querySelector('[data-how-cap]');
+  var CAPS = [
+    'The main window, as it opens.',
+    'The address dialog, waiting for a link.',
+    'Progress by connection: the strip and the table.',
+    'Finished: the completion dialog over the full strip.'
+  ];
+  if (steps.length && himgs.length && 'IntersectionObserver' in window) {
+    var setState = function (idx) {
+      steps.forEach(function (s, i) { s.classList.toggle('is-active', i === idx); });
+      himgs.forEach(function (im, i) { im.classList.toggle('is-on', i === idx); });
+      if (hcap && CAPS[idx]) { hcap.textContent = CAPS[idx]; }
+    };
+    var hio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { setState(steps.indexOf(e.target)); }
+      });
+    }, { rootMargin: '-42% 0px -42% 0px' });
+    steps.forEach(function (s) { hio.observe(s); });
   }
 
   /* ---------- platform-aware primary buttons ---------- */
@@ -87,7 +76,7 @@
     var alt = document.getElementById('hero-alt');
     var foot = document.getElementById('footer-download');
     if (hero) { hero.setAttribute('href', deb); hero.textContent = 'Download for Linux'; }
-    if (alt) { alt.setAttribute('href', setup); alt.textContent = 'or the Windows setup'; }
+    if (alt) { alt.setAttribute('href', setup); alt.textContent = 'Download for Windows'; }
     if (foot) { foot.setAttribute('href', deb); }
   }
 
@@ -114,6 +103,19 @@
     applyPlatform();
   }).catch(function () { /* static values match the current release */ });
   applyPlatform();
+
+  /* ---------- footer clock (Dhaka) ---------- */
+  var clock = document.getElementById('dhaka-time');
+  if (clock && 'Intl' in window) {
+    var fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', hour12: false
+    });
+    var tick = function () {
+      clock.textContent = 'Local time ' + fmt.format(new Date()) + ', Bangladesh Standard Time';
+    };
+    tick();
+    setInterval(tick, 30000);
+  }
 
   /* ---------- video picker ---------- */
   /* Sample formats: example data in the style yt-dlp returns — the sizes

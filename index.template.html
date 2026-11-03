@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NDM — Nill Download Manager for Windows and Linux</title>
+<meta name="description" content="NDM is a free download manager for Windows and Linux: up to 32 parallel connections per file, resume after restarts, video downloads via yt-dlp, a browser extension, and hash-verified self-updates.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hero" id="top">
+  <div class="topbar">
+    <a class="wordmark" href="#top">NDM</a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#release">Release</a>
+      <a href="#how">How it runs</a>
+      <a href="#engine">The engine</a>
+      <a href="#video">Video</a>
+      <a href="#questions">Questions</a>
+    </nav>
+  </div>
+
+  <div class="hero-copy">
+    <h1 class="hero-name">Every download<br>lands whole.</h1>
+    <p class="hero-support">Free and open source for Windows and Linux. Every download is recorded as it runs, so an interrupted file resumes from the exact byte, and a video page becomes a file whose size you saw first.</p>
+    <div class="hero-action">
+      <a class="btn" id="hero-download" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_setup.exe">Download for Windows</a>
+      <a class="btn btn-alt" id="hero-alt" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_amd64.deb">Download for Linux</a>
+    </div>
+  </div>
+
+  <div class="stage" aria-hidden="false">
+    <figure class="hero-frag shutter">
+      <img src="%%IMG:hero%%" alt="The NDM progress dialog at the end of a download: eight connections, each block of the file marked Done, the connection strip full" width="624" height="722">
+    </figure>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="release" id="release">
+  <h2 class="sec-head rv">Release <span data-ver>2.2.0</span> is six files</h2>
+  <p class="frag-cap rv">Pictured above: the shipped app, recorded as it runs. The progress dialog of release <span data-ver>2.2.0</span>, one finished file, every block written at its final offset.</p>
+
+  <div class="ftable-wrap rv">
+    <table class="ftable">
+      <thead>
+        <tr><th scope="col">File</th><th scope="col">SHA-256</th><th scope="col" class="num">Size</th><th scope="col"><span class="vh">Get</span></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="f-file"><span class="f-name">NDM_2.2.0_setup.exe</span><span class="f-kind">Windows installer — one setup for 64-bit and 32-bit</span></td>
+          <td class="f-hash"><code data-hash="win_setup">b4c0ba72fbbb141316c05b58046bb9084a2e2904f9dbeb120925c6f613740fe2</code></td>
+          <td class="f-size num">6.13 MB</td>
+          <td class="f-get"><a href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_setup.exe" data-get="win_setup">Download</a></td>
+        </tr>
+        <tr>
+          <td class="f-file"><span class="f-name">NDM_2.2.0_Windows_Portable.zip</span><span class="f-kind">Windows portable, 64-bit</span></td>
+          <td class="f-hash"><code data-hash="win">b241c9ba9863af284c22ed5811f53f63a68f9b322fffcbcb60d5927908c79023</code></td>
+          <td class="f-size num">5.61 MB</td>
+          <td class="f-get"><a href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_Windows_Portable.zip" data-get="win">Download</a></td>
+        </tr>
+        <tr>
+          <td class="f-file"><span class="f-name">NDM_2.2.0_Windows_Portable_x86.zip</span><span class="f-kind">Windows portable, 32-bit</span></td>
+          <td class="f-hash"><code data-hash="win_x86">1aa89e531652ff409539942b56dbf175f7c2bad5d8df4658c3048c7e6d838de5</code></td>
+          <td class="f-size num">4.82 MB</td>
+          <td class="f-get"><a href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_Windows_Portable_x86.zip" data-get="win_x86">Download</a></td>
+        </tr>
+        <tr>
+          <td class="f-file"><span class="f-name">NDM_2.2.0_amd64.deb</span><span class="f-kind">Linux, Debian family</span></td>
+          <td class="f-hash"><code data-hash="deb">8cf914dbea88068be6cf26df1e40a9149c8c052c22cd12d99565b6fc2039a2c2</code></td>
+          <td class="f-size num">2.89 MB</td>
+          <td class="f-get"><a href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_amd64.deb" data-get="deb">Download</a></td>
+        </tr>
+        <tr>
+          <td class="f-file"><span class="f-name">NDM_2.2.0_Linux_Portable.tar.xz</span><span class="f-kind">Linux portable, other distributions, video components bundled</span></td>
+          <td class="f-hash"><code>768061716e1080fa36eed576cc834a1d4390d1fa06a2e776ba06b3b3275f5371</code></td>
+          <td class="f-size num">120 MB</td>
+          <td class="f-get"><a href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_Linux_Portable.tar.xz">Download</a></td>
+        </tr>
+        <tr>
+          <td class="f-file"><span class="f-name">ndm-extension-2.2.0.zip</span><span class="f-kind">Browser extension, Chrome and Firefox</span></td>
+          <td class="f-hash"><code data-hash="ext">50a54e9efd563279547951ae76925bf84ffe360b23660d762ce28086c3ae6e19</code></td>
+          <td class="f-size num">100 KB</td>
+          <td class="f-get"><a href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/ndm-extension-2.2.0.zip">Download</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="release-under">
+    <div class="verify rv">
+      <h3>Check what you received</h3>
+      <p>Each file&rsquo;s SHA-256 is printed beside it, exactly as published with the release. Compare the hash of the file you received before you run it:</p>
+      <pre><code>Get-FileHash .\NDM_2.2.0_setup.exe -Algorithm SHA256
+sha256sum NDM_2.2.0_amd64.deb</code></pre>
+      <p>The Windows setup is a single file for both architectures: it carries the 64-bit and the 32-bit build and installs the one your machine needs, so there is no wrong setup to pick. The Linux portable is the large file in the table because the video components are bundled into it; every other file is the application alone.</p>
+    </div>
+    <div class="changed rv">
+      <h3>What changed in <span data-ver>2.2.0</span></h3>
+      <ul>
+        <li>Cookie-gated sites download now. NDM keeps the session cookies a download starts with, so files that used to answer 403 for want of a login cookie come down like any other.</li>
+        <li>A trickling connection no longer stalls a download forever. A stream that drips bytes too slowly is detected, dropped, and its block is taken by a healthy connection instead.</li>
+        <li>One throttled answer no longer slows the whole pool. When a server rate-limits a connection, that connection alone backs off; the rest keep their pace.</li>
+        <li>Starts and resumes take fewer trips. Probing costs one round trip instead of two, and resume checks run in parallel, so a resumed download is moving again sooner.</li>
+        <li>A download survives its server dropping range support halfway through. Instead of failing, the file restarts as a single stream and still lands whole.</li>
+        <li>FTP downloads, with resume. The same engine takes files from an FTP server and resumes from the recorded byte where the server allows it.</li>
+        <li>A program can run when a download completes — an antivirus scan is the obvious use. It is off until you set it, and it receives the finished file.</li>
+        <li>The scheduler keeps a fuller calendar: queues can run on chosen days of the week, fire once at a set time, or synchronize on an interval, and a lone failed download retries on its own.</li>
+        <li>Categories can match by site, not only by file type, so everything from one host can land in its own folder automatically.</li>
+        <li>The grabber works offline and on schedule. Links in a grabbed site are rewritten so it browses from disk, and a grabber project can run on the scheduler like any queue.</li>
+        <li>The extension&rsquo;s force-download and bypass hold-keys are configurable, and finished files can be dragged straight out of the download list.</li>
+        <li>One Windows installer. The setup carries both the 64-bit and the 32-bit build and installs the one the machine needs — Windows users no longer have to know which architecture they run.</li>
+      </ul>
+      <p class="changed-note">A note on proof: the engine changes were measured before and after with the same harness that found the gaps, and this release passed all four CI builds — Linux, both Windows architectures&rsquo; test suites, and a silent install-and-launch check of the universal setup.</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <h2 class="sec-head rv">How it runs</h2>
+  <div class="how-grid">
+    <div class="how-steps">
+      <div class="hstep is-active" data-how-step>
+        <p class="hstep-line">Take the file for your system.</p>
+        <p class="hstep-note">One setup installs the right Windows build, 64-bit or 32-bit; the .deb covers the Debian family, and the portable files run as they are. Every file above is published with its SHA-256.</p>
+      </div>
+      <div class="hstep" data-how-step>
+        <p class="hstep-line">Add a link, from anywhere.</p>
+        <p class="hstep-note">Paste a URL, drop a file on the basket, or let the browser extension hand the download over, with that link&rsquo;s cookies attached to the entry.</p>
+      </div>
+      <div class="hstep" data-how-step>
+        <p class="hstep-line">It pulls the file down in parallel.</p>
+        <p class="hstep-note">Up to 32 connections write 1 MiB blocks at their final offsets, and a journal records the progress as it happens. The strip in the dialog is the file, filling in place.</p>
+      </div>
+      <div class="hstep" data-how-step>
+        <p class="hstep-line">At 100%, it is already whole.</p>
+        <p class="hstep-note">No part files and no merge pass, because the file was written in place. Stop it at any point and it resumes from the recorded byte; a finished file is never overwritten.</p>
+      </div>
+    </div>
+    <div class="how-stage">
+      <div class="how-frame">
+        <img class="how-img is-on" data-how-img src="%%IMG:how1%%" alt="The NDM main window, open and ready: the category list, the toolbar and an empty download list" width="880" height="568">
+        <img class="how-img" data-how-img src="%%IMG:how2%%" alt="The Download address dialog over the NDM window, waiting for a link" width="460" height="230" loading="lazy">
+        <img class="how-img" data-how-img src="%%IMG:how3%%" alt="The per-connection table in the progress dialog: eight connections, each with its downloaded amount and status" width="618" height="304" loading="lazy">
+        <img class="how-img" data-how-img src="%%IMG:how4%%" alt="The Download complete dialog over the progress dialog, the connection strip full beneath it" width="640" height="318" loading="lazy">
+      </div>
+      <p class="how-cap" data-how-cap>The main window, as it opens.</p>
+    </div>
+  </div>
+</section>
+
+<section class="engine" id="engine">
+  <h2 class="sec-head rv">The engine</h2>
+  <p class="statement rv">An engine that expects interruption.</p>
+
+  <div class="mod rv">
+    <figure class="mod-panel"><img src="%%IMG:f_journal%%" alt="One row of the download list: the file&rsquo;s last try date and its blocks, all filled" width="360" height="180" loading="lazy"></figure>
+    <div class="mod-text">
+      <h3>Resume is a journal, not a hope</h3>
+      <p>Progress is written to downloads.json as it happens. Restart the app or the machine, or let a signed link expire: the entry keeps its bytes, and Refresh Address attaches a fresh link to the same entry.</p>
+    </div>
+  </div>
+
+  <div class="mod rv">
+    <figure class="mod-panel"><img src="%%IMG:f_limit%%" alt="The progress dialog&rsquo;s tabs: Download status, Speed Limiter, Options on completion" width="360" height="150" loading="lazy"></figure>
+    <div class="mod-text">
+      <h3>A limiter on each download</h3>
+      <p>Set a rate for one file while it runs, or a global cap with a quota in megabytes over 1 to 168 hours. The change applies mid-flight, not at the next start.</p>
+    </div>
+  </div>
+
+  <div class="mod rv">
+    <figure class="mod-panel"><img src="%%IMG:f_queue%%" alt="The scheduler for one queue: start and stop times, and the days of the week it runs on" width="360" height="180" loading="lazy"></figure>
+    <div class="mod-text">
+      <h3>Queues that keep hours</h3>
+      <p>Named queues carry their own concurrency caps and start and stop times. When a queue runs dry it can close the app, or shut the machine down.</p>
+    </div>
+  </div>
+
+  <div class="mod rv">
+    <figure class="mod-panel"><img src="%%IMG:f_grab%%" alt="The category editor: each category&rsquo;s file types and the sites that route files into it" width="360" height="180" loading="lazy"></figure>
+    <div class="mod-text">
+      <h3>Whole sites in one go</h3>
+      <p>Site Grabber walks a page and takes every linked file of the types you choose. Categories then route each finished file into its folder by extension, and the drop basket takes drags from anywhere.</p>
+    </div>
+  </div>
+
+  <div class="mod rv">
+    <figure class="mod-panel mod-panel-code"><pre><code>{
+  "version": "2.2.0",
+  "min_supported": "2.2.0",
+  "win_setup_url": "…/v2.2.0/NDM_2.2.0_setup.exe",
+  "win_setup_sha256": "b4c0ba72fbbb1413…"
+}</code></pre></figure>
+    <div class="mod-text">
+      <h3>Updates that check themselves</h3>
+      <p>NDM reads its own release feed, verifies the SHA-256 of an update before installing it, and honours the feed&rsquo;s minimum supported version — the 2.0.10 feed used it to require that update.</p>
+    </div>
+  </div>
+</section>
+
+<section class="video" id="video">
+  <h2 class="sec-head sec-head-light rv">A video page becomes a file</h2>
+  <div class="video-top rv">
+    <label class="video-label" for="video-url">Video page address</label>
+    <input class="video-input" id="video-url" type="url" value="https://www.youtube.com/watch?v=aqz-KE-bpKQ" autocomplete="off" spellcheck="false" aria-describedby="pk-status">
+  </div>
+
+  <div class="pk-stage">
+    <img class="pk-flank pk-flank-l" src="%%IMG:flank_l%%" alt="" aria-hidden="true" width="560" height="362" loading="lazy">
+    <div class="picker" data-ui role="group" aria-label="The NDM video picker, demonstrated">
+      <div class="pk-sheet">
+        <div class="pk-head"><span>Add Video</span><span class="pk-x" aria-hidden="true">&times;</span></div>
+        <div class="pk-body">
+          <p class="pk-name" id="pk-name">Me at the zoo</p>
+          <p class="pk-meta"><span id="pk-host">youtube.com</span> &middot; <span id="pk-dur">0:19</span></p>
+          <div class="pk-rows" id="pk-rows" role="radiogroup" aria-label="Formats"></div>
+          <div class="pk-foot">
+            <span class="pk-status" id="pk-status" aria-live="polite">720p selected</span>
+            <button class="pk-download" id="pk-download" type="button">Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img class="pk-flank pk-flank-r" src="%%IMG:flank_r%%" alt="" aria-hidden="true" width="560" height="362" loading="lazy">
+  </div>
+  <div class="pk-side">
+    <p class="pk-side-name">The video picker</p>
+    <p class="pk-side-text">Every format is listed with its size before anything downloads. Pick one and press Download. The picker answers the way the app does.</p>
+  </div>
+
+  <p class="video-note rv">The picker reads the page through yt-dlp, which covers more than 1,700 sites, and shows every format with its size before anything downloads. H.264 and MP4 are preferred; ffmpeg merges split picture and sound.</p>
+  <div class="examples rv">
+    <span class="examples-word">Try</span>
+    <button type="button" data-ex="zoo">Me at the zoo</button>
+    <button type="button" data-ex="rick">Never Gonna Give You Up</button>
+    <button type="button" data-ex="gangnam">Gangnam Style</button>
+  </div>
+</section>
+
+<section class="faq" id="questions">
+  <div class="faq-grid">
+    <h2 class="sec-head faq-h">Questions</h2>
+    <div class="faq-list">
+      <details class="qa" name="faq" open>
+        <summary>Is NDM really free?</summary>
+        <p>Yes, and open source. There is no paid tier, no account and nothing locked behind one. The files in the release above are the whole product.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Why is the installer only 6.13 MB?</summary>
+        <p>It carries both Windows builds of the app and nothing else: one Rust engine serves both platforms, and the app brings its C runtime with it. The video components (yt-dlp, deno and ffmpeg) are downloaded once, in the background, the first time a video is resolved, and each is checked against a SHA-256 pinned in the app before it may run.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Which systems does it run on?</summary>
+        <p>Windows 7 SP1, 8, 8.1, 10 and 11, in 64-bit and 32-bit — the one installer picks the build that matches the machine. On Linux, a Debian-family distribution on x86-64 (Debian, Ubuntu, Zorin OS, Linux Mint and derivatives), through the .deb or the portable tarball.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>What leaves my machine?</summary>
+        <p>Your downloads, from the servers you pick. An update check against the release feed. And one anonymous install count, an empty request with no identifier attached. There is no telemetry and no sign-in.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>A download stopped at 99%. Is it lost?</summary>
+        <p>No. Progress lives in the journal, not in temporary part files, because there are no part files. Resume continues from the recorded byte. If the link itself has expired, Refresh Address attaches a fresh signed link to the same entry, and an interrupted merge restores as paused and is verified before it can count as finished.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Do I need the browser extension?</summary>
+        <p>No. Paste a link, or drag one onto the drop basket. The extension, for Chrome and Firefox, only removes the copy and paste: it sends the browser&rsquo;s downloads to the app, carrying the cookies for that link, which are stored with that entry only.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <p class="cta-statement rv">Windows, or Linux — take release <span data-ver>2.2.0</span> as <a class="cta-btn cta-btn-a" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_setup.exe">the Windows setup</a> or <a class="cta-btn cta-btn-b" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_amd64.deb">the Linux .deb</a>.</p>
+  <p class="cta-after rv">Either way it is served from the release feed, and the hashes in the table above are how you check what arrived.</p>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="ft-row">
+    <div class="ft ft-state">
+      <p class="ft-big">Take the current release.</p>
+      <p class="ft-legal">Free and open source, under MIT OR Apache-2.0. The pictures on this page are the shipping app, recorded as it runs.</p>
+    </div>
+    <nav class="ft ft-nav" aria-label="Footer">
+      <a href="#release">Release files</a>
+      <a href="#how">How it runs</a>
+      <a href="#engine">The engine</a>
+      <a href="#video">Video</a>
+      <a href="#questions">Questions</a>
+      <a href="https://github.com/JAHURULNILL/ndm/releases/latest/download/release.json">Release feed</a>
+    </nav>
+    <div class="ft ft-place">
+      <p class="ft-place-name">Dhaka, Bangladesh</p>
+      <p class="ft-time" id="dhaka-time">Bangladesh Standard Time</p>
+    </div>
+    <div class="ft ft-ver">
+      <p class="ft-ver-n">Release <span data-ver>2.2.0</span></p>
+      <p class="ft-ver-note">Six files, each published with its SHA-256, and one installer for both Windows architectures.</p>
+    </div>
+  </div>
+  <div class="ft-row ft-row2">
+    <div class="ft ft-mark" aria-hidden="true">NDM</div>
+    <a class="ft ft-get" id="footer-download" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.2.0/NDM_2.2.0_setup.exe">
+      <span class="ft-get-text">Download NDM <span data-ver>2.2.0</span></span>
+      <svg class="ft-arrow" viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+    </a>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
