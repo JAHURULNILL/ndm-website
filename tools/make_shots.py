@@ -1,24 +1,32 @@
 #!/usr/bin/env python3
 """Prepare the genuine shipped-app screenshots for the NDM site.
 
-Crops the GTK proof-run captures (~/workspace/ndm220-run/shots/) to the
-regions the design uses, encodes them as WebP and writes a JSON map of
-placeholder -> data URI. build_site.py inlines them into index.html
-(the deploy route is text-only, so the pictures travel inside the page).
+Crops the GTK proof-run captures to the regions the design uses,
+encodes them as WebP and writes a JSON map of placeholder -> data
+URI. build_site.py inlines them into index.html (the deploy route
+is text-only, so the pictures travel inside the page).
+
+Sources: ~/workspace/ndm220-run/shots/ for the 2.3.0 captures; the
+main-window entries (how1, flank_l, flank_r) come from the shipped
+2.3.1 gate capture in ~/workspace/ndm231-gate/shots/, so the window
+shown carries the 2.3.1 icon toolbar. A job whose source is an
+absolute path is read as-is.
 """
 import base64
 import io
 import json
+import os
 from PIL import Image
 
 SHOTS = "/home/hatch/workspace/ndm220-run/shots"
+GATE_MAIN = "/home/hatch/workspace/ndm231-gate/shots/gate-01-main.png"
 
 # name -> (source file, crop box (l, t, r, b) in native 1400x900, max width, quality)
 JOBS = {
     # the progress dialog at true size — the hero fragment
-    "hero":    ("07-progressdlg.png", (4, 0, 628, 722), None, 88),
+    "hero":    ("08-progressdlg-230.png", (0, 0, 620, 698), None, 88),
     # how-it-works states
-    "how1":    ("01-main.png",        (0, 0, 1112, 718), 880, 84),
+    "how1":    (GATE_MAIN,            (0, 0, 1112, 718), 880, 84),
     "how2":    ("02-addurl.png",      (330, 250, 790, 480), None, 86),
     "how3":    ("07-progressdlg.png", (8, 262, 626, 566), None, 86),
     "how4":    ("06-complete.png",    (0, 0, 640, 318), None, 86),
@@ -27,9 +35,9 @@ JOBS = {
     "f_limit":   ("07-progressdlg.png",     (8, 2, 368, 152), None, 86),
     "f_queue":   ("15-scheduler.png",       (450, 118, 810, 298), None, 86),
     "f_grab":    ("14-options-categories.png", (250, 203, 610, 383), None, 86),
-    # showcase flanks
-    "flank_l": ("01-main.png", (0, 0, 1112, 718), 560, 80),
-    "flank_r": ("11-main2.png", (0, 0, 1112, 718), 560, 80),
+    # showcase flanks — both edges of the same shipped 2.3.1 window
+    "flank_l": (GATE_MAIN, (0, 0, 1112, 718), 560, 80),
+    "flank_r": (GATE_MAIN, (0, 0, 1112, 718), 560, 80),
 }
 
 
@@ -43,7 +51,8 @@ def main():
     out = {}
     total = 0
     for name, (src, box, maxw, q) in JOBS.items():
-        im = Image.open(f"{SHOTS}/{src}").convert("RGB").crop(box)
+        path = src if os.path.isabs(src) else f"{SHOTS}/{src}"
+        im = Image.open(path).convert("RGB").crop(box)
         if maxw and im.width > maxw:
             im = im.resize((maxw, round(im.height * maxw / im.width)), Image.LANCZOS)
         data = encode(im, q)
