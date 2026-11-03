@@ -1,212 +1,185 @@
-/* NDM website behaviour (The product performs):
-   1. Live release feed — version labels, download hrefs and the feed
-      hashes refresh from the app's own update feed. The extension
-      link and hash stay static: the feed publishes only ext_sha256.
-   2. Platform-aware primary buttons (Linux visitors get the .deb first).
-   3. The video picker: typed address, example videos, selectable formats.
-   4. Reveal on scroll — armed by this script, so content is never
-      hidden if the script or the observer fails.
-   5. How it runs: the pinned stage crossfades to the active step.
-   6. The footer clock: Dhaka local time.
-   No dependencies. */
+/* NDM website behavior: GitHub release metadata, OS-aware download, hash copying. */
 (function () {
   'use strict';
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var FEED_URL = 'https://github.com/JAHURULNILL/ndm/releases/latest/download/release.json';
 
-  /* ---------- reveal ---------- */
-  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.rv'));
-  if (!reduced && 'IntersectionObserver' in window) {
-    revealEls.forEach(function (el, i) {
-      el.style.setProperty('--d', ((i % 3) * 80) + 'ms');
-      el.classList.add('armed');
-    });
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    revealEls.forEach(function (el) { io.observe(el); });
-    /* Safety: nothing stays hidden, whatever the observer does. */
-    setTimeout(function () {
-      revealEls.forEach(function (el) { el.classList.add('in'); });
-    }, 3000);
-  }
+  var RELEASE_API = 'https://api.github.com/repos/JAHURULNILL/ndm/releases/latest';
+  var RELEASE_PATH = '/JAHURULNILL/ndm/releases/download/';
+  var PACKAGE_KEYS = ['win_setup', 'win', 'win_x86', 'deb', 'linux_portable', 'ext'];
 
-  /* ---------- how it runs: pinned stage states ---------- */
-  var steps = Array.prototype.slice.call(document.querySelectorAll('[data-how-step]'));
-  var himgs = Array.prototype.slice.call(document.querySelectorAll('[data-how-img]'));
-  var hcap = document.querySelector('[data-how-cap]');
-  var CAPS = [
-    'The main window, as it opens.',
-    'The address dialog, waiting for a link.',
-    'Progress by connection: the strip and the table.',
-    'Finished: the completion dialog over the full strip.'
-  ];
-  if (steps.length && himgs.length && 'IntersectionObserver' in window) {
-    var setState = function (idx) {
-      steps.forEach(function (s, i) { s.classList.toggle('is-active', i === idx); });
-      himgs.forEach(function (im, i) { im.classList.toggle('is-on', i === idx); });
-      if (hcap && CAPS[idx]) { hcap.textContent = CAPS[idx]; }
-    };
-    var hio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { setState(steps.indexOf(e.target)); }
-      });
-    }, { rootMargin: '-42% 0px -42% 0px' });
-    steps.forEach(function (s) { hio.observe(s); });
-  }
-
-  /* ---------- platform-aware primary buttons ---------- */
-  var ua = navigator.userAgent || '';
-  var isLinux = /Linux|X11/i.test(ua) && !/Win|Android|Macintosh/i.test(ua);
-  function getHref(key) {
-    var el = document.querySelector('[data-get="' + key + '"]');
-    return el ? el.getAttribute('href') : null;
-  }
-  function applyPlatform() {
-    if (!isLinux) { return; }
-    var deb = getHref('deb');
-    var setup = getHref('win_setup');
-    if (!deb || !setup) { return; }
-    var hero = document.getElementById('hero-download');
-    var alt = document.getElementById('hero-alt');
-    var foot = document.getElementById('footer-download');
-    if (hero) { hero.setAttribute('href', deb); hero.textContent = 'Download for Linux'; }
-    if (alt) { alt.setAttribute('href', setup); alt.textContent = 'Download for Windows'; }
-    if (foot) { foot.setAttribute('href', deb); }
-  }
-
-  /* ---------- feed refresh ---------- */
-  function setHref(sel, url) {
-    document.querySelectorAll(sel).forEach(function (el) { el.setAttribute('href', url); });
-  }
-  fetch(FEED_URL).then(function (r) {
-    if (!r.ok) { throw new Error('feed ' + r.status); }
-    return r.json();
-  }).then(function (feed) {
-    if (!feed || !feed.version) { return; }
-    var v = String(feed.version).replace(/^v/, '');
-    document.querySelectorAll('[data-ver]').forEach(function (el) { el.textContent = v; });
-    var urls = { win_setup: feed.win_setup_url, win: feed.win_url, win_x86: feed.win_x86_url, deb: feed.deb_url };
-    Object.keys(urls).forEach(function (key) {
-      if (urls[key]) { setHref('[data-get="' + key + '"]', urls[key]); }
-    });
-    var hashes = { win_setup: feed.win_setup_sha256, win: feed.win_sha256, win_x86: feed.win_x86_sha256, deb: feed.deb_sha256 };
-    Object.keys(hashes).forEach(function (key) {
-      var el = document.querySelector('[data-hash="' + key + '"]');
-      if (el && hashes[key]) { el.textContent = hashes[key]; }
-    });
-    applyPlatform();
-  }).catch(function () { /* static values match the current release */ });
-  applyPlatform();
-
-  /* ---------- footer clock (Dhaka) ---------- */
-  var clock = document.getElementById('dhaka-time');
-  if (clock && 'Intl' in window) {
-    var fmt = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', hour12: false
-    });
-    var tick = function () {
-      clock.textContent = 'Local time ' + fmt.format(new Date()) + ', Bangladesh Standard Time';
-    };
-    tick();
-    setInterval(tick, 30000);
-  }
-
-  /* ---------- video picker ---------- */
-  /* Sample formats: example data in the style yt-dlp returns — the sizes
-     are plausible magnitudes for these famous videos, not measurements. */
-  var EXAMPLES = {
-    zoo: {
-      url: 'https://www.youtube.com/watch?v=aqz-KE-bpKQ',
-      title: 'Me at the zoo', host: 'youtube.com', dur: '0:19', pick: 1,
-      formats: [['1080p MP4', '8.6 MB'], ['720p MP4', '4.9 MB'], ['480p MP4', '2.7 MB'], ['360p MP4', '1.6 MB'], ['M4A audio only', '0.4 MB']]
-    },
-    rick: {
-      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      title: 'Never Gonna Give You Up', host: 'youtube.com', dur: '3:33', pick: 1,
-      formats: [['1080p MP4', '42.1 MB'], ['720p MP4', '23.6 MB'], ['480p MP4', '12.4 MB'], ['360p MP4', '7.1 MB'], ['M4A audio only', '3.3 MB']]
-    },
-    gangnam: {
-      url: 'https://www.youtube.com/watch?v=9bZkp7q19f0',
-      title: 'Gangnam Style', host: 'youtube.com', dur: '4:13', pick: 1,
-      formats: [['1080p MP4', '63.8 MB'], ['720p MP4', '34.2 MB'], ['480p MP4', '18.7 MB'], ['360p MP4', '10.3 MB'], ['M4A audio only', '3.9 MB']]
+  function safeReleaseUrl(value) {
+    if (typeof value !== 'string') { return null; }
+    try {
+      var url = new URL(value);
+      if (url.protocol !== 'https:' || url.hostname !== 'github.com' || url.pathname.indexOf(RELEASE_PATH) !== 0) {
+        return null;
+      }
+      return url.href;
+    } catch (error) {
+      return null;
     }
-  };
-  var input = document.getElementById('video-url');
-  var rows = document.getElementById('pk-rows');
-  var pkName = document.getElementById('pk-name');
-  var pkHost = document.getElementById('pk-host');
-  var pkDur = document.getElementById('pk-dur');
-  var status = document.getElementById('pk-status');
-  var queued = false;
-
-  function render(ex) {
-    pkName.textContent = ex.title;
-    pkHost.textContent = ex.host;
-    pkDur.textContent = ex.dur;
-    rows.innerHTML = '';
-    queued = false;
-    ex.formats.forEach(function (f, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'pk-row' + (i === ex.pick ? ' sel' : '');
-      b.setAttribute('role', 'radio');
-      b.setAttribute('aria-checked', i === ex.pick ? 'true' : 'false');
-      var fmt = document.createElement('span');
-      fmt.textContent = f[0];
-      var size = document.createElement('span');
-      size.className = 'pk-size';
-      size.textContent = f[1];
-      b.appendChild(fmt);
-      b.appendChild(size);
-      b.addEventListener('click', function () {
-        rows.querySelectorAll('.pk-row').forEach(function (r) {
-          r.classList.remove('sel');
-          r.setAttribute('aria-checked', 'false');
-        });
-        b.classList.add('sel');
-        b.setAttribute('aria-checked', 'true');
-        status.textContent = f[0] + ' selected' + (queued ? ' — press Download to queue' : '');
-      });
-      rows.appendChild(b);
-    });
-    status.textContent = ex.formats[ex.pick][0] + ' selected';
   }
 
-  document.querySelectorAll('[data-ex]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var ex = EXAMPLES[btn.getAttribute('data-ex')];
-      if (!ex) { return; }
-      if (input) { input.value = ex.url; }
-      render(ex);
+  function getPackageKey(name) {
+    if (/^NDM_.+_setup\.exe$/i.test(name)) { return 'win_setup'; }
+    if (/^NDM_.+_Windows_Portable_x86\.zip$/i.test(name)) { return 'win_x86'; }
+    if (/^NDM_.+_Windows_Portable\.zip$/i.test(name)) { return 'win'; }
+    if (/^NDM_.+_amd64\.deb$/i.test(name)) { return 'deb'; }
+    if (/^NDM_.+_Linux_Portable\.tar\.xz$/i.test(name)) { return 'linux_portable'; }
+    if (/^ndm-extension-.+\.zip$/i.test(name)) { return 'ext'; }
+    return null;
+  }
+
+  function formatFileSize(bytes) {
+    if (typeof bytes !== 'number' || !isFinite(bytes) || bytes < 0) { return null; }
+    if (bytes < 1024 * 1024) { return Math.round(bytes / 1024) + ' KB'; }
+    var mib = bytes / (1024 * 1024);
+    return mib >= 100 ? mib.toFixed(1) + ' MB' : mib.toFixed(2) + ' MB';
+  }
+
+  function setPrimaryDownload() {
+    var button = document.getElementById('hero-download');
+    var note = document.getElementById('hero-download-note');
+    if (!button) { return; }
+
+    var uaPlatform = navigator.userAgentData && navigator.userAgentData.platform
+      ? navigator.userAgentData.platform
+      : '';
+    var platform = [uaPlatform, navigator.userAgent || '', navigator.platform || ''].join(' ');
+    var linuxDesktop = /linux|x11/i.test(platform) && !/android/i.test(platform);
+    var windowsDesktop = /windows|win32|win64/i.test(platform);
+
+    if (linuxDesktop) {
+      var deb = document.querySelector('.package-row [data-get="deb"]');
+      if (deb) { button.setAttribute('href', deb.getAttribute('href')); }
+      button.setAttribute('data-get', 'deb');
+      var linuxTitle = button.querySelector('strong');
+      if (linuxTitle) { linuxTitle.textContent = 'Download for Linux'; }
+      if (note) { note.textContent = 'Debian family · x86-64'; }
+    } else if (windowsDesktop) {
+      var setup = document.querySelector('.package-row [data-get="win_setup"]');
+      if (setup) { button.setAttribute('href', setup.getAttribute('href')); }
+      button.setAttribute('data-get', 'win_setup');
+      var windowsTitle = button.querySelector('strong');
+      if (windowsTitle) { windowsTitle.textContent = 'Download for Windows'; }
+      if (note) { note.textContent = 'Universal installer · 32-bit + 64-bit'; }
+    } else {
+      button.removeAttribute('data-get');
+      button.setAttribute('href', '#downloads');
+      var generalTitle = button.querySelector('strong');
+      if (generalTitle) { generalTitle.textContent = 'Choose a desktop build'; }
+      if (note) { note.textContent = 'Windows 7–11 · Debian-family Linux'; }
+    }
+  }
+
+  function updateFromRelease(release) {
+    if (!release || typeof release.tag_name !== 'string' || !Array.isArray(release.assets)) { return false; }
+    var version = release.tag_name.replace(/^v/i, '');
+    if (!/^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(version)) { return false; }
+
+    var assets = {};
+    release.assets.forEach(function (asset) {
+      if (!asset || typeof asset.name !== 'string') { return; }
+      var key = getPackageKey(asset.name);
+      if (key) { assets[key] = asset; }
     });
+
+    /* Avoid mixing a new release with stale fallback links or hashes. */
+    for (var i = 0; i < PACKAGE_KEYS.length; i += 1) {
+      var asset = assets[PACKAGE_KEYS[i]];
+      var href = asset && safeReleaseUrl(asset.browser_download_url);
+      var match = asset && typeof asset.digest === 'string' ? asset.digest.match(/^sha256:([a-f0-9]{64})$/i) : null;
+      var size = asset && formatFileSize(asset.size);
+      if (!asset || !href || !match || !size) { return false; }
+    }
+
+    document.querySelectorAll('[data-ver]').forEach(function (node) {
+      node.textContent = version;
+    });
+    PACKAGE_KEYS.forEach(function (key) {
+      var asset = assets[key];
+      var href = safeReleaseUrl(asset.browser_download_url);
+      var digest = asset.digest.slice('sha256:'.length).toLowerCase();
+      document.querySelectorAll('[data-get="' + key + '"]').forEach(function (link) {
+        link.setAttribute('href', href);
+      });
+      var filename = document.querySelector('[data-filename="' + key + '"]');
+      if (filename) { filename.textContent = asset.name; }
+      var size = document.querySelector('[data-size="' + key + '"]');
+      if (size) { size.textContent = formatFileSize(asset.size); }
+      var hash = document.querySelector('[data-hash="' + key + '"]');
+      if (hash) { hash.textContent = digest; }
+    });
+    setPrimaryDownload();
+    return true;
+  }
+
+  function refreshReleaseMetadata() {
+    if (!('fetch' in window)) { return; }
+    window.fetch(RELEASE_API, {
+      headers: { Accept: 'application/vnd.github+json' },
+      cache: 'default'
+    }).then(function (response) {
+      if (!response.ok) { throw new Error('Latest release is unavailable.'); }
+      return response.json();
+    }).then(function (release) {
+      updateFromRelease(release);
+    }).catch(function () {
+      /* Bundled version, filenames, links, sizes, and hashes remain usable. */
+    });
+  }
+
+  function fallbackCopy(text) {
+    var field = document.createElement('textarea');
+    field.value = text;
+    field.setAttribute('readonly', '');
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    field.style.pointerEvents = 'none';
+    document.body.appendChild(field);
+    field.select();
+    field.setSelectionRange(0, field.value.length);
+    var copied = false;
+    try { copied = document.execCommand('copy'); } catch (error) { copied = false; }
+    document.body.removeChild(field);
+    return copied;
+  }
+
+  function copyHash(button) {
+    var key = button.getAttribute('data-copy-hash');
+    var code = document.querySelector('[data-hash="' + key + '"]');
+    var status = document.querySelector('[data-copy-status="' + key + '"]');
+    if (!code || !status) { return; }
+
+    var text = code.textContent.trim();
+    var original = button.textContent;
+    function announce(message) {
+      status.textContent = message;
+      button.textContent = message === 'Copied.' ? 'Copied' : original;
+      window.setTimeout(function () {
+        button.textContent = original;
+        status.textContent = '';
+      }, 2200);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        navigator.clipboard.writeText(text).then(function () {
+          announce('Copied.');
+        }).catch(function () {
+          announce(fallbackCopy(text) ? 'Copied.' : 'Select the hash to copy.');
+        });
+      } catch (error) {
+        announce(fallbackCopy(text) ? 'Copied.' : 'Select the hash to copy.');
+      }
+    } else {
+      announce(fallbackCopy(text) ? 'Copied.' : 'Select the hash to copy.');
+    }
+  }
+
+  document.querySelectorAll('[data-copy-hash]').forEach(function (button) {
+    button.addEventListener('click', function () { copyHash(button); });
   });
 
-  if (input) {
-    input.addEventListener('input', function () {
-      var v = input.value.trim().toLowerCase();
-      if (v.indexOf('aqz-ke-bpkq') !== -1) { render(EXAMPLES.zoo); }
-      else if (v.indexOf('dqw4w9wgxcq') !== -1) { render(EXAMPLES.rick); }
-      else if (v.indexOf('9bzkp7q19f0') !== -1) { render(EXAMPLES.gangnam); }
-    });
-  }
-
-  var pkDownload = document.getElementById('pk-download');
-  if (pkDownload) {
-    pkDownload.addEventListener('click', function () {
-      var sel = rows.querySelector('.pk-row.sel');
-      if (!sel) { return; }
-      var fmtTxt = sel.firstChild.textContent;
-      var sizeTxt = sel.lastChild.textContent;
-      queued = true;
-      status.textContent = 'Queued in NDM: ' + pkName.textContent + ' · ' + fmtTxt + ' · ' + sizeTxt;
-    });
-  }
-
-  render(EXAMPLES.zoo);
+  setPrimaryDownload();
+  refreshReleaseMetadata();
 })();

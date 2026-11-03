@@ -16,13 +16,15 @@ ROOT = pathlib.Path(__file__).resolve().parent
 def main():
     shots = json.loads((ROOT / "tools" / "shots.json").read_text())
     html = (ROOT / "index.template.html").read_text()
+    embedded = []
     for name, shot in shots.items():
         token = f"%%IMG:{name}%%"
-        assert token in html, f"placeholder {token} missing from template"
-        html = html.replace(token, shot["uri"])
+        if token in html:
+            html = html.replace(token, shot["uri"])
+            embedded.append(name)
     assert "%%IMG:" not in html, "unreplaced image placeholder remains"
     (ROOT / "index.html").write_text(html)
-    print(f"index.html written: {len(html) / 1024:.0f} KB")
+    print(f"index.html written: {len(html) / 1024:.0f} KB; embedded screenshots: {', '.join(embedded)}")
 
 
 if __name__ == "__main__":
