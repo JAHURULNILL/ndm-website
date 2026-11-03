@@ -1,6 +1,6 @@
 /* NDM website behaviour (redesign v2):
-   1. Live release feed — version labels, download hrefs and the three
-      feed hashes refresh from the app's own update feed. The extension
+   1. Live release feed — version labels, download hrefs and the feed
+      hashes refresh from the app's own update feed. The extension
       link and hash stay static: the feed publishes only ext_sha256.
    2. Platform-aware primary buttons (Linux visitors get the .deb first).
    3. The video picker: typed address, example videos, selectable formats.
@@ -102,11 +102,11 @@
     if (!feed || !feed.version) { return; }
     var v = String(feed.version).replace(/^v/, '');
     document.querySelectorAll('[data-ver]').forEach(function (el) { el.textContent = v; });
-    var urls = { win_setup: feed.win_setup_url, win: feed.win_url, deb: feed.deb_url };
+    var urls = { win_setup: feed.win_setup_url, win: feed.win_url, win_x86: feed.win_x86_url, deb: feed.deb_url };
     Object.keys(urls).forEach(function (key) {
       if (urls[key]) { setHref('[data-get="' + key + '"]', urls[key]); }
     });
-    var hashes = { win_setup: feed.win_setup_sha256, win: feed.win_sha256, deb: feed.deb_sha256 };
+    var hashes = { win_setup: feed.win_setup_sha256, win: feed.win_sha256, win_x86: feed.win_x86_sha256, deb: feed.deb_sha256 };
     Object.keys(hashes).forEach(function (key) {
       var el = document.querySelector('[data-hash="' + key + '"]');
       if (el && hashes[key]) { el.textContent = hashes[key]; }
