@@ -1,42 +1,43 @@
 ---
-name: Recording Desk
-description: A measured desktop-download interface built from light enamel, dark ink, steel rails, walnut trim, and restrained signal red.
+name: NDM Route Map
+description: A light-first download route map with direct Windows, Linux, and optional browser-companion paths.
 colors:
-  canvas: "#f4ecd6"
-  wood: "#211914"
-  wood-mid: "#403326"
-  wood-light: "#604930"
-  face: "#fffdf8"
-  face-light: "#f8f3e8"
-  face-dim: "#ebe2d2"
-  ink: "#1c1a16"
-  ink-soft: "#514b42"
-  text: "#211c16"
-  text-dim: "#5b5348"
-  steel: "#7c8789"
-  steel-light: "#c8cecc"
-  line-dark: "#a99e8c"
-  line-light: "#d4cbbd"
-  signal: "#bd4032"
-  signal-deep: "#a93e31"
+  canvas: "#f6f8ff"
+  paper: "#ffffff"
+  paper-blue: "#e9eeff"
+  paper-green: "#e8f5ef"
+  paper-orange: "#fff0e9"
+  ink: "#17233d"
+  ink-soft: "#354661"
+  muted: "#50627d"
+  blue: "#2b50d9"
+  blue-deep: "#1d3eae"
+  green: "#18785a"
+  green-deep: "#10583f"
+  orange: "#c9472f"
+  orange-deep: "#b83d27"
+  line: "#cdd8ed"
+  line-light: "#e2e8f5"
+  success: "#176343"
+  danger: "#a3312d"
 typography:
   display:
     fontFamily: "Barlow Condensed, Arial Narrow, sans-serif"
-    fontSize: "clamp(3.55rem, 7vw, 6.2rem)"
+    fontSize: "clamp(3.5rem, 6.4vw, 5.8rem)"
     fontWeight: 600
-    lineHeight: 0.97
+    lineHeight: 0.94
     letterSpacing: "-0.025em"
   headline:
     fontFamily: "Barlow Condensed, Arial Narrow, sans-serif"
-    fontSize: "clamp(2.6rem, 4.8vw, 4.35rem)"
+    fontSize: "clamp(2.65rem, 4.7vw, 4rem)"
     fontWeight: 600
-    lineHeight: 0.99
+    lineHeight: 0.96
     letterSpacing: "-0.02em"
   title:
     fontFamily: "Barlow Condensed, Arial Narrow, sans-serif"
-    fontSize: "1.65rem"
+    fontSize: "clamp(1.65rem, 2vw, 2rem)"
     fontWeight: 600
-    lineHeight: 1.1
+    lineHeight: 1.04
   body:
     fontFamily: "General Sans, Segoe UI, sans-serif"
     fontSize: "clamp(0.98rem, 0.95rem + 0.14vw, 1.08rem)"
@@ -44,50 +45,56 @@ typography:
     lineHeight: 1.58
   label:
     fontFamily: "General Sans, Segoe UI, sans-serif"
-    fontSize: "0.72rem"
+    fontSize: "0.76rem"
     fontWeight: 700
     lineHeight: 1.25
-    letterSpacing: "0.075em"
   mono:
     fontFamily: "SFMono-Regular, Consolas, Liberation Mono, monospace"
-    fontSize: "0.72rem"
+    fontSize: "0.62rem"
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.35
 rounded:
   square: "0px"
   status-dot: "50%"
 spacing:
-  gutter: "clamp(20px, 5vw, 72px)"
-  section: "clamp(76px, 9vw, 132px)"
-  section-small-screen: "74px"
-  panel: "clamp(24px, 4vw, 48px)"
+  page-width: "1320px"
+  gutter: "clamp(20px, 4.6vw, 68px)"
+  section: "clamp(76px, 9vw, 124px)"
+  route-gap: "clamp(12px, 1.6vw, 22px)"
+  route-body: "18px clamp(14px, 1.8vw, 24px) 16px"
 components:
-  button-primary:
-    backgroundColor: "{colors.signal}"
-    textColor: "#fff8ed"
+  route-button:
+    backgroundColor: "{colors.blue}"
+    textColor: "#ffffff"
     rounded: "{rounded.square}"
-    padding: "12px 18px 12px 21px"
-    height: "58px"
-  button-primary-hover:
-    backgroundColor: "{colors.signal-deep}"
-    textColor: "#fff8ed"
+    padding: "11px 14px 11px 16px"
+    height: "50px"
+  route-button-hover:
+    backgroundColor: "{colors.blue-deep}"
+    textColor: "#ffffff"
     rounded: "{rounded.square}"
-  platform-selected:
-    backgroundColor: "{colors.signal}"
-    textColor: "#fff8ed"
+  linux-route-button:
+    backgroundColor: "{colors.green}"
+    textColor: "#ffffff"
     rounded: "{rounded.square}"
-    padding: "8px 17px"
-    height: "44px"
-  release-panel:
-    backgroundColor: "{colors.face}"
+    padding: "11px 14px 11px 16px"
+    height: "50px"
+  extension-route-button:
+    backgroundColor: "{colors.orange}"
+    textColor: "#ffffff"
+    rounded: "{rounded.square}"
+    padding: "11px 14px 11px 16px"
+    height: "50px"
+  navigation:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink-soft}"
+    rounded: "{rounded.square}"
+    height: "74px"
+  route-card:
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
     rounded: "{rounded.square}"
-    padding: "clamp(24px, 4vw, 48px)"
-  navigation:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.text-dim}"
-    rounded: "{rounded.square}"
-    height: "78px"
+    padding: "0"
   package-row:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
@@ -95,135 +102,131 @@ components:
     padding: "14px 0 13px"
 ---
 
-# Design System: Recording Desk
+# Design System: NDM Route Map
 
 ## Overview
 
-**Creative North Star: "Recording Desk"**
+**Creative North Star: "The Route Map"**
 
-Recording Desk treats the interface as a calm, physical control surface: light warm enamel and cream surfaces carry the field, dark ink keeps information readable, steel frames the evidence, walnut appears only as small trim or mark-making, and a small amount of signal red marks action or status. It is dense enough to feel instrument-like, but the hierarchy remains factual and open rather than ornamental. Condensed display lettering supplies the calibrated scale; General Sans keeps explanation and controls direct; mono is reserved for filenames, hashes, and other actual data.
+NDM’s visual system is a light-first distribution map: a calm cool field makes three direct paths easy to distinguish, while navy ink and compact display type keep the decision factual. Cobalt marks the Windows route, green marks the Linux route, and AA-safe vermilion marks the optional browser-companion route. Broad route bands, square download controls, and restrained rules create wayfinding without pretending the page is a live transfer console.
 
-Depth comes from layered light surfaces and structural rules more than decoration. Square or near-square silhouettes, measured dividers, and restrained state changes make the system feel assembled and dependable. The visual language is page-level and reusable across related surfaces without prescribing any one landing-page composition. A compact dark code sample and the genuine NDM screenshot are functional exceptions for code legibility and product proof, not the page theme.
+Barlow Condensed supplies compact, purposeful display hierarchy; General Sans carries readable explanation and interface copy. Mono is evidentiary only: filenames and hashes use it because those strings are data. Existing authentic NDM application screenshots are retained as proof of the desktop product, not as decorative stock imagery. The system stays light, with purposeful surfaces, rules, and restrained shadows rather than dark panels or faux telemetry.
 
 **Key Characteristics:**
-- Light cream and warm-enamel surfaces dominate, with dark ink and steel rails for structure.
-- Walnut is accent/trim only; no large dark page surfaces.
-- Condensed display hierarchy paired with an uncluttered sans UI voice.
-- Data-aware mono treatment for filenames, hashes, and the compact code sample only.
-- Tactile, square-edged controls with restrained signal-red emphasis.
+- Light canvas and white paper surfaces with pale-blue, pale-green, and pale-vermilion fields.
+- Navy ink and muted blue-gray supporting text for clear hierarchy.
+- Cobalt, green, and vermilion identify the three direct route families.
+- Barlow Condensed display type paired with General Sans body/UI text.
+- Square controls, route bands, real app evidence, and visible keyboard focus.
 
 ## Colors
 
-The palette is a light warm-instrument range: cream canvas and enamel faces carry the page, dark ink supplies contrast, steel provides hardware-like structure, walnut is reserved for small trim, and signal red stays scarce and functional.
+The palette is a cool, light route-map range: porcelain and pale-blue surfaces carry the page, navy ink provides hierarchy, and saturated route colors identify destinations and their states.
 
 ### Primary
-- **Calibrated Signal Red** (`{colors.signal}`): The principal action and active-status accent; use sparingly for decisive controls, selected platform indicators, and completion/error emphasis.
-- **Deep Signal Red** (`{colors.signal-deep}`): The darker interaction state for signal-red actions, links, and focus treatment.
+- **Cobalt Route** (`{colors.blue}`): Windows route bands, primary links, focus-adjacent emphasis, and default direct-download actions.
+- **Deep Cobalt** (`{colors.blue-deep}`): Windows hover state, stronger links, focus outline, and selected emphasis.
 
 ### Secondary
-- **Brushed Steel** (`{colors.steel}`) and **Light Steel** (`{colors.steel-light}`): Hardware-like rails, proof framing, utility bands, and neutral structural contrast.
+- **Linux Green** (`{colors.green}`): Linux route bands and direct-download actions.
+- **Deep Linux Green** (`{colors.green-deep}`): Linux hover state and darker route interaction.
 
 ### Tertiary
-- **Walnut Trim** (`{colors.wood}`), **Walnut Mid** (`{colors.wood-mid}`), and **Walnut Light** (`{colors.wood-light}`): Small marks, brand detail, and restrained trim only; never the dominant page field.
+- **Vermilion Route** (`{colors.orange}`): Optional browser-companion route and warm route markers.
+- **Deep Vermilion** (`{colors.orange-deep}`): Extension hover state and warm link emphasis.
 
 ### Neutral
-- **Cream Canvas** (`{colors.canvas}`): Dominant page, header, footer, and mechanism background.
-- **Warm Enamel** (`{colors.face}`) and **Light Enamel** (`{colors.face-light}`): Release/catalog/FAQ surfaces, controls, skip treatment, and readable light content.
-- **Dim Enamel** (`{colors.face-dim}`): Capabilities surface and platform-control tray.
-- **Instrument Ink** (`{colors.ink}`) and **Soft Ink** (`{colors.ink-soft}`): Primary and supporting text on light surfaces.
-- **Warm Text** (`{colors.text}`) and **Dim Warm Text** (`{colors.text-dim}`): Secondary text hierarchy on the cream canvas.
-- **Dark Rule** (`{colors.line-dark}`) and **Light Rule** (`{colors.line-light}`): Structural dividers matched to light surfaces.
+- **Cool Porcelain** (`{colors.canvas}`) and **White Paper** (`{colors.paper}`): Page field, header, catalogue, and primary containers.
+- **Pale Blue Field** (`{colors.paper-blue}`): Proof strip, hash details, FAQ field, and cool status surfaces.
+- **Pale Green Field** (`{colors.paper-green}`): Capability information surface.
+- **Pale Vermilion Field** (`{colors.paper-orange}`): Release/version note surface.
+- **Navy Ink** (`{colors.ink}`), **Soft Navy** (`{colors.ink-soft}`), and **Muted Blue Gray** (`{colors.muted}`): Headings, readable copy, and supporting metadata.
+- **Cool Rule** (`{colors.line}`) and **Light Rule** (`{colors.line-light}`): Structural dividers and ledger rules.
+- **Success Green** (`{colors.success}`) and **Danger Red** (`{colors.danger}`): Status feedback only.
 
-**The Light Field Rule.** Light surfaces dominate; walnut is accent/trim only, and no large dark page surface is permitted. The compact dark code sample and genuine NDM screenshot remain functional exceptions.
-
-**The Signal Rarity Rule.** Signal red is a functional accent, not a wallpaper color: reserve it for action, status, and meaningful emphasis.
+**The Route Color Rule.** Use cobalt, green, and vermilion to identify route families and their actions; do not turn route colors into decorative gradients or a replacement for readable labels.
 
 ## Typography
 
 **Display Font:** Barlow Condensed (with Arial Narrow, sans-serif fallback)
 **Body Font:** General Sans (with Segoe UI, sans-serif fallback)
-**Label/Mono Font:** General Sans for UI labels; SFMono-Regular, Consolas, Liberation Mono for filenames, hashes, and the compact code sample.
+**Label/Mono Font:** General Sans for labels; SFMono-Regular, Consolas, Liberation Mono for filenames and hashes.
 
-**Character:** Barlow Condensed gives headings a compact, instrument-panel authority without becoming retro display type. General Sans keeps descriptions, navigation, and controls plainspoken; mono is deliberately evidentiary rather than decorative.
+**Character:** Barlow Condensed gives the map its compact destination-label voice. General Sans keeps navigation, explanations, package metadata, and controls plainspoken; mono remains a precise data treatment rather than atmosphere.
 
 ### Hierarchy
-- **Display** (600, `clamp(3.55rem, 7vw, 6.2rem)`, 0.97): Large page-level statements and primary display moments.
-- **Headline** (600, `clamp(2.6rem, 4.8vw, 4.35rem)`, 0.99): Section headings that act as readable panel labels.
-- **Title** (600, `1.65rem`, 1.1): Component and subsection headings.
+- **Display** (600, `clamp(3.5rem, 6.4vw, 5.8rem)`, 0.94): Opening promise and highest-level statement.
+- **Headline** (600, `clamp(2.65rem, 4.7vw, 4rem)`, 0.96): Section headings and major route-map labels.
+- **Title** (600, `clamp(1.65rem, 2vw, 2rem)`, 1.04): Route-card and subsection headings.
 - **Body** (400, `clamp(0.98rem, 0.95rem + 0.14vw, 1.08rem)`, 1.58): Explanatory copy and default document text.
-- **Label** (700, `0.72rem`, `0.075em`, uppercase where used): Instrument metadata, status bands, and compact utility labels.
-- **Mono data** (400, `0.72rem`, 1.4): Filenames, hashes, and code/data strings only.
+- **Label** (700, `0.76rem`, 1.25): Route bands, compact metadata, and direct action labels.
+- **Mono data** (400, `0.62rem`, 1.35): Filenames and hashes only.
 
-**The Two-Voice Rule.** Use Barlow Condensed for hierarchy and General Sans for operating the interface; do not use the display face for body copy or mono for atmosphere.
+**The Two-Face Rule.** Use Barlow Condensed for display hierarchy and General Sans for operating text; use mono only when a filename or hash is actually being shown.
 
 ## Layout
 
-The shared shell is capped at `1280px` and uses fluid inline gutters of `clamp(20px, 5vw, 72px)`. Section rhythm is `clamp(76px, 9vw, 132px)` on larger screens and `74px` on small screens. Content uses structured grids, ledger rows, and aligned rules rather than card grids by default.
+The shared shell is capped at `1320px` and uses fluid inline gutters of `clamp(20px, 4.6vw, 68px)`. The opening route map uses three equal desktop columns with gaps of `clamp(12px, 1.6vw, 22px)`; each lane keeps its route band, package identity, size, direct action, and alternate note together. The extension route remains equally legible beside the Windows and Linux routes, while its optional status is explicit.
 
-The observed responsive breakpoints are `1100px`, `900px`, `680px`, `420px`, and `360px`. At `1100px` and above, major opening content can use a two-column split; below that it progressively compresses, and at `680px` it stacks into one column with 20px gutters. Small screens preserve usable 44px control targets, make the platform control full width, and keep the primary action prominent. At `900px`, package rows reflow their identity, size, download, and hash disclosure into a readable sequence; at `420px` and `360px`, metadata and opening spacing tighten further.
+At `1020px`, route spacing and package rows compress. At `760px`, the header and major grids tighten, route lanes stack as compact two-column cards, and alternate route links are hidden while direct actions remain. At `420px` and `360px`, route labels and metadata tighten further. The page preserves the same route order and direct-download hierarchy rather than introducing a platform tab or hiding the extension.
 
-The first fold presents a coherent Windows selection with `Universal installer`, `Download for Windows`, `NDM_2.3.1_setup.exe`, and the direct optional extension download action in the release-panel footer alongside the platform/package context. The catalogue retains five desktop packages plus one separate optional Chrome/Firefox extension row.
+The page uses section rhythm from `clamp(76px, 9vw, 124px)` and a `70px` small-screen section rhythm. Interactive targets retain generous minimum heights: navigation links are 44px at wide widths and 40px on small screens; route buttons are 50px at wide widths and compact to 38px in the phone route-map treatment.
 
 ## Elevation & Depth
 
-This system is layered rather than shadow-heavy. Cream canvas, warm enamel, steel, walnut trim, and rule colors do most of the depth work; shadows are reserved for large instrument panels or product-proof frames where a physical lift clarifies the boundary. The release panel uses `0 18px 38px rgba(46, 34, 19, 0.14)`, and the mechanism proof frame uses `0 16px 32px rgba(46, 34, 19, 0.14)`. Do not add ambient shadows to ordinary rows, links, or navigation.
+This system is tonal and lightly lifted. White paper, pale-blue/green/vermilion fields, and cool rules establish most hierarchy; shadows are reserved for route cards, proof frames, and other framed evidence that needs a modest physical boundary. Route cards use `0 8px 18px rgba(34, 56, 105, 0.09)` at rest and `0 12px 24px rgba(34, 56, 105, 0.14)` on hover. The proof image frame uses `0 5px 14px rgba(23, 35, 61, 0.12)` and the mechanism frame uses `0 10px 22px rgba(23, 35, 61, 0.14)`.
 
-**The Structural Depth Rule.** Establish hierarchy with light surface changes and measured borders first; use a shadow only when a large framed object needs to separate from the field.
+**The Tonal Depth Rule.** Establish hierarchy with light surfaces and rules first; shadows remain restrained and purposeful, never ambient decoration for ordinary text or navigation.
 
 ## Shapes
 
-Corners are square by default (`0px`); the only recurring rounded silhouette is a small status dot (`50%`). Structural borders, enamel layers, and clipped panel edges carry the material character. The release console and proof frames hide overflow where their frame needs a clean edge. Focus is a `3px` solid `{colors.signal-deep}` ring with `4px` offset, visible on keyboard focus without changing the component silhouette.
+Corners are square by default (`0px`). Route bands, direct-download controls, package rows, status notes, and content surfaces use crisp rectangular silhouettes; the recurring circular shape is limited to the availability/status dot (`50%`). Focus is a `3px` solid deep-cobalt ring with `4px` offset, visible on keyboard focus without changing the component silhouette.
 
 ## Components
 
 ### Buttons
-- **Shape:** Square, tactile rectangles (`0px`) with minimum heights of 44px for compact controls and 58px for the primary download action.
-- **Primary:** Signal red with warm near-white text, `12px 18px 12px 21px` padding, and a download glyph aligned at the trailing edge.
-- **Hover / Focus:** Background shifts to deep signal red; primary action lifts `1px` on hover and settles `1px` on active. All keyboard focus uses the shared 3px signal-deep ring with 4px offset. State transitions are `150ms ease`.
-- **Secondary / Tertiary:** Platform choices use a light warm-neutral tray; the selected choice becomes signal red with warm near-white text. Hash-copy buttons remain compact, bordered, and enamel-filled.
+- **Shape:** Square direct-download controls (`0px`) with a `50px` minimum height on wide screens and responsive compact heights on small screens.
+- **Primary route actions:** Cobalt, Linux green, or vermilion according to route; white text, `11px 14px 11px 16px` padding, and an inline SVG download icon at the trailing edge.
+- **Hover / Focus / Active:** Route-specific deep color on hover, `translateY(-1px)` on hover, `translateY(1px)` on active, and the shared `3px` deep-cobalt focus ring with `4px` offset. Transitions use `150ms ease`.
+- **Secondary:** Package download links and alternate package links remain text-led, underlined where useful, and inherit the cool ink hierarchy.
 
 ### Cards / Containers
-- **Corner Style:** Square, with overflow clipped where the frame is a composed instrument surface.
-- **Background:** Release, catalog, and FAQ panels use warm enamel; the page, header, footer, and mechanism use cream canvas; capabilities use dim enamel. Walnut is limited to trim and small brand marks.
-- **Shadow Strategy:** Large release/product-proof frames only; see Elevation & Depth.
-- **Border:** One-pixel structural borders, with heavier steel framing reserved for proof imagery.
-- **Internal Padding:** Console body uses `clamp(24px, 4vw, 48px)` generally and `clamp(20px, 2.4vw, 32px)` in the wide two-column variant.
+- **Corner Style:** Square, with route cards and proof frames composed as clean rectangular surfaces.
+- **Background:** White paper for route cards and catalogue; pale-blue, pale-green, or pale-vermilion fields for contextual bands.
+- **Shadow Strategy:** Restrained route-card and proof-frame shadows only; see Elevation & Depth.
+- **Border / Rules:** One-pixel cool rules and heavier route-color bands establish structure.
+- **Internal Padding:** Route bodies use `18px clamp(14px, 1.8vw, 24px) 16px`; compact phone bodies tighten to `9px 13px 8px` and then `9px 10px 8px` at the smallest route layout.
 
 ### Navigation
-- **Style:** Light cream-canvas header with a 1px structural rule, a 78px minimum inner height, and a walnut-mid brand mark. Links use General Sans at `0.84rem`, muted at rest and signal-deep on hover.
-- **Focus / mobile:** Navigation links retain 44px targets on wide screens; at 680px they use 40px targets, hide the secondary “How it works” link and external-link glyph, and reduce gaps. The skip link is a light-enamel, square utility surface.
+- **Style:** White-paper header with a `1px` bottom rule, `74px` minimum inner height, a cobalt mark, and muted General Sans links.
+- **States:** Links shift to cobalt on hover; source is deep cobalt by default; all links keep visible keyboard focus.
+- **Mobile:** At `760px`, the header compresses to 66px, hides the descriptor and secondary “How it works” link, and removes the source glyph while retaining the source link.
 
-### Segmented Platform Control
-- **Style:** A 1px bordered dim-enamel tray with 4px inner padding and 2px inter-button gap.
-- **States:** Each choice is at least 44px high; hover darkens text, selected state uses signal red with warm near-white text and a signal-red border. At 680px the control fills the row and each choice takes half the width.
+### Package Rows and Disclosures
+- **Style:** Catalogue rows use identity, size, download, and SHA-256 disclosure columns with `14px 0 13px` padding and `1px` light rules.
+- **Data:** Filenames and hashes use the mono face; hash copy controls are compact square bordered buttons.
+- **Responsive:** At `1020px`, rows reflow to identity, size/action, then disclosure; at `760px`, hash content wraps to a readable full-width line.
 
-### Release Panel
-- **Style:** A framed warm-enamel console with a steel top rail, two-column body when space permits, a factual metadata footer, and a genuine NDM proof image area. It is a signature container, not a universal card recipe.
-- **Behavior:** Keep the selected build, filename, size, primary action, alternate package, and direct “Download extension” action visibly adjacent within the release panel. Preserve the panel's hierarchy when stacking at narrow widths.
-
-### Package Rows and Accordions
-- **Package rows:** Use a three-column ledger at wide widths with identity, size, and download aligned above a hash disclosure; rows use 1px light rules and `14px 0 13px` padding. The catalogue contains five desktop packages and one separate optional Chrome/Firefox extension row; the extension sends browser downloads to NDM and can carry link cookies.
-- **Accordions:** Native `details` disclosures use border-top/bottom rules, a condensed summary, and a small plus/minus mark. Open state rotates the mark rather than introducing a new surface. Hash values and the compact dark code sample use the mono face. Do not invent or display fake checksum values in component examples.
+### Proof Imagery
+- **Style:** Existing authentic NDM application screenshots sit in white/pale-blue framed surfaces with modest shadow and factual captions.
+- **Behavior:** Imagery is evidence of the desktop app, not a simulated live web download state; preserve the existing screenshots and their descriptive alt text.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** make light cream, warm-enamel, and dim-enamel surfaces the dominant visual field.
-- **Do** keep walnut restricted to small accent/trim roles; use dark ink and steel rails for structure.
-- **Do** use Barlow Condensed for display hierarchy and General Sans for operating text.
-- **Do** reserve mono styling for filenames, hashes, genuine code/data strings, and the compact dark code sample.
-- **Do** use signal red for primary and selected-platform actions, with signal-deep for hover/focus states.
-- **Do** use structural borders and tonal layering before adding shadow; keep the two observed large-frame shadows purposeful.
-- **Do** preserve square silhouettes, clear 44px interaction targets, the 3px signal-deep focus ring, and reduced-motion behavior.
-- **Do** let responsive layouts reflow through the observed `1100px`, `900px`, `680px`, `420px`, and `360px` thresholds rather than shrinking every element uniformly.
-- **Do** keep the direct extension download visible in the release-panel footer and the optional extension row in the package catalogue.
+- **Do** keep the page light-first with cool porcelain, white paper, and purposeful pale-blue, pale-green, and pale-vermilion surfaces.
+- **Do** use cobalt for Windows, green for Linux, and AA-safe vermilion for the optional extension route.
+- **Do** use Barlow Condensed for display hierarchy and General Sans for readable interface copy.
+- **Do** reserve mono styling for filenames and hashes.
+- **Do** use square direct-download controls, route bands, structural rules, and restrained shadows.
+- **Do** preserve clear keyboard focus with the `3px` deep-cobalt ring and `4px` offset, plus reduced-motion behavior.
+- **Do** let the route map stack responsively at `760px`, `420px`, and `360px` without hiding the extension route.
+- **Do** use authentic existing app screenshots as evidence and keep them factual.
 
 ### Don't:
-- **Don't** make walnut or any dark color a dominant page, header, footer, or navigation surface.
-- **Don't** turn signal red into a broad decorative gradient or dominant page background.
-- **Don't** claim that this website downloads video; video downloads happen in the NDM desktop app.
-- **Don't** remove the optional Chrome/Firefox extension or its browser-download handoff and link-cookie truth.
-- **Don't** introduce rounded cards, pill controls, glassmorphism, or soft ambient shadows that conflict with the structural instrument language.
+- **Don't** reintroduce an obsolete palette or contradictory visual vocabulary.
+- **Don't** make this a dark dashboard, faux telemetry view, or live video-downloader website.
+- **Don't** replace route labels with a platform tab or hide the optional browser companion.
+- **Don't** use rounded cards, pill controls, glassmorphism, broad gradients, or generic feature-card grids.
 - **Don't** use Barlow Condensed for paragraphs or monospace as a general UI font.
-- **Don't** replace measured rules and tonal surfaces with a generic equal-card feature grid.
-- **Don't** remove visible focus treatment or motion-reduction support from interactive components.
+- **Don't** invent screenshots, visual claims, product capabilities, or proof that is not present in the implementation.

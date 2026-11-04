@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#211914">
-  <title>NDM — A download manager that remembers progress</title>
-  <meta name="description" content="NDM is a free, open-source download manager for Windows and Linux. It records transfer progress as it arrives, so interrupted downloads can resume from where they stopped.">
+  <meta name="theme-color" content="#f6f8ff">
+  <title>NDM — Downloads that remember where they stopped</title>
+  <meta name="description" content="NDM is a free, open-source download manager for Windows and Debian-family Linux. Interrupted downloads can resume from their recorded progress.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/barlow-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/general-sans-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,11 +18,10 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="NDM home">
-        <svg class="brand-mark" viewBox="0 0 34 34" aria-hidden="true">
-          <path d="M4 27a13 13 0 1 1 26 0" fill="none" stroke="currentColor" stroke-width="2"/>
-          <path d="M8 27h18" fill="none" stroke="currentColor" stroke-width="2"/>
-          <path d="m17 24 7-10" fill="none" stroke="#bd4032" stroke-width="2.4" stroke-linecap="round"/>
-          <circle cx="17" cy="25" r="2" fill="#bd4032"/>
+        <svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true">
+          <path d="M5 9h14c5 0 8 3 8 7s-3 7-8 7H5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
+          <path d="M5 9v18" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="27" cy="16" r="3.5" fill="#e9573f"/>
         </svg>
         <span class="brand-word">NDM</span>
         <span class="brand-descriptor">Nill Download Manager</span>
@@ -32,7 +32,7 @@
         <a href="#questions">Questions</a>
         <a class="source-link" href="https://github.com/JAHURULNILL/ndm" target="_blank" rel="noopener noreferrer">
           Source
-          <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M5 13 13 5M6 5h7v7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>
         </a>
       </nav>
     </div>
@@ -40,64 +40,107 @@
 
   <main id="main">
     <section class="opening shell" id="top" aria-labelledby="opening-title">
-      <div class="opening-copy">
-        <h1 id="opening-title">A stopped download doesn’t have to start over.</h1>
-        <p class="opening-lede">NDM is a free, open-source desktop download manager for Windows and Debian-family Linux. It saves progress as each block arrives, so interrupted transfers can resume.</p>
+      <div class="opening-heading">
+        <div class="opening-copy">
+          <h1 id="opening-title">Pick up where the download stopped.</h1>
+          <p class="opening-lede">Free, open-source for Windows and Debian-family Linux. NDM journals blocks as they arrive, so interrupted downloads can resume from the recorded byte.</p>
+        </div>
       </div>
 
-      <section class="release-console" id="release" aria-labelledby="release-title">
-        <div class="console-topline">
-          <span class="console-name">Release desk</span>
-          <span class="console-state"><i aria-hidden="true"></i> Downloadable package set <b data-ver>2.3.1</b></span>
-          <span class="console-license">Free · Open source</span>
+      <section class="download-map" id="downloads" aria-labelledby="download-title">
+        <div class="download-map-head">
+          <div>
+            <h2 id="download-title">Choose a download.</h2>
+            <p>Three direct routes. Pick the one that fits.</p>
+          </div>
+          <div class="map-head-aside">
+            <span class="release-pill" aria-label="Current downloadable package set"><strong>v<span data-ver>2.3.1</span></strong></span>
+            <a class="all-packages-link" href="#packages">All packages
+            <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="console-body">
-          <div class="platform-bay">
-            <h2 id="release-title">Choose your system.</h2>
-            <p class="platform-intro">The right desktop build, ready to download.</p>
-            <div class="platform-switch" role="group" aria-label="Choose your operating system">
-              <button type="button" class="platform-choice" data-platform-choice="windows" aria-pressed="true">Windows</button>
-              <button type="button" class="platform-choice" data-platform-choice="linux" aria-pressed="false">Linux</button>
+
+        <div class="route-track" aria-label="NDM download options">
+          <article class="route-card route-windows" data-route-platform="windows" data-recommended="false">
+            <div class="route-band">
+              <span>Windows desktop</span>
+              <span class="route-recommendation" id="windows-recommended" hidden>For this device</span>
             </div>
-            <div class="selected-build" aria-live="polite" aria-atomic="true">
-              <p class="build-kind" id="selected-build-kind">Universal installer</p>
-              <p class="build-note" id="selected-build-note">Includes 32-bit and 64-bit; installs the matching build.</p>
-              <a class="download-button" id="hero-download" data-get="win_setup" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_setup.exe">
+            <div class="route-body">
+              <h3>Universal setup</h3>
+              <p>Win 7 SP1–11 · 32/64-bit.</p>
+              <div class="route-file"><code data-filename="win_setup">NDM_2.3.1_setup.exe</code><span data-size="win_setup">6.24 MB</span></div>
+              <a class="route-button" id="hero-download" data-get="win_setup" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_setup.exe">
                 <span id="hero-download-label">Download for Windows</span>
                 <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 3v11m0 0 4-4m-4 4-4-4M4 16v3h14v-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
-              <div class="build-meta"><span id="selected-file-size">6.24 MB</span><span>Package set <b data-ver>2.3.1</b></span></div>
-              <code class="selected-filename" id="selected-file-name">NDM_2.3.1_setup.exe</code>
-              <a class="alternate-package" id="alternate-package" data-get="win" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Windows_Portable.zip">Prefer portable? Get the 64-bit ZIP</a>
-              <p class="platform-status sr-only" id="platform-status" aria-live="polite"></p>
+              <a class="route-alternate" id="alternate-package" data-get="win" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Windows_Portable.zip">Portable 64-bit ZIP · <span data-size="win">5.68 MB</span></a>
             </div>
-          </div>
+          </article>
 
-          <figure class="console-proof">
-            <div class="proof-ruler"><span>Transfer details</span><span>NDM desktop app</span></div>
-            <div class="proof-image-frame">
-              <img src="%%IMG:how3%%" alt="Real NDM transfer details showing progress rows for separate file connections" width="618" height="304" fetchpriority="high">
+          <article class="route-card route-linux" data-route-platform="linux" data-recommended="false">
+            <div class="route-band">
+              <span>Linux desktop</span>
+              <span class="route-recommendation" id="linux-recommended" hidden>For this device</span>
             </div>
-            <figcaption>Progress, written and tracked by connection.</figcaption>
-          </figure>
+            <div class="route-body">
+              <h3>Debian package</h3>
+              <p>Debian-family Linux · x86-64.</p>
+              <div class="route-file"><code data-filename="deb">NDM_2.3.1_amd64.deb</code><span data-size="deb">2.98 MB</span></div>
+              <a class="route-button" data-get="deb" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_amd64.deb">
+                <span>Download for Linux</span>
+                <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 3v11m0 0 4-4m-4 4-4-4M4 16v3h14v-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="route-alternate" data-get="linux_portable" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Linux_Portable.tar.xz">Portable tar.xz · <span data-size="linux_portable">119.8 MB</span></a>
+            </div>
+          </article>
+
+          <article class="route-card route-extension">
+            <div class="route-band">
+              <span>Browser companion</span>
+              <span class="route-optional">Optional</span>
+            </div>
+            <div class="route-body">
+              <h3>Chrome + Firefox</h3>
+              <p>Optional · sends browser downloads to the NDM desktop app.</p>
+              <div class="route-file"><code data-filename="ext">ndm-extension-2.3.1.zip</code><span data-size="ext">107 KB</span></div>
+              <a class="route-button" data-get="ext" aria-label="Download the optional Chrome and Firefox browser extension ZIP" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/ndm-extension-2.3.1.zip">
+                <span>Download extension</span>
+                <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 3v11m0 0 4-4m-4 4-4-4M4 16v3h14v-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p class="route-alternate route-note">Optional · works with NDM for Windows or Linux</p>
+            </div>
+          </article>
         </div>
-        <div class="console-foot">
-          <span>Windows 7 SP1–11 · 32/64-bit</span>
-          <span>Linux · Debian family · x86-64</span>
-          <a class="extension-download-link" data-get="ext" aria-label="Download the optional Chrome and Firefox browser extension" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/ndm-extension-2.3.1.zip">Download extension</a>
-          <a class="all-downloads-link" href="#downloads">See all downloads <span aria-hidden="true">↘</span></a>
+        <p class="platform-status sr-only" id="platform-status" aria-live="polite"></p>
+      </section>
+
+      <section class="proof-strip" aria-labelledby="proof-title">
+        <figure class="proof-shot">
+          <div class="proof-image-frame">
+            <img src="%%IMG:how3%%" alt="Real NDM transfer details showing progress rows for separate file connections" width="618" height="304" fetchpriority="high">
+          </div>
+          <figcaption>Real transfer details from the NDM desktop app</figcaption>
+        </figure>
+        <div class="proof-copy">
+          <h2 id="proof-title">When a transfer breaks, the record is still there.</h2>
+          <p>NDM writes each parallel block to its final position and journals progress as it arrives. After an interruption, the desktop app can resume from the recorded byte.</p>
+          <div class="proof-flow" aria-label="Blocks arrive, progress is journaled, and an interrupted transfer can resume">
+            <span>Blocks arrive</span><i aria-hidden="true"></i><span>Progress journaled</span><i aria-hidden="true"></i><span>Resume from record</span>
+          </div>
         </div>
       </section>
     </section>
 
-    <section class="catalog-section" id="downloads" aria-labelledby="catalog-title">
+    <section class="catalog-section" id="packages" aria-labelledby="catalog-title">
       <div class="shell catalog-shell">
         <div class="catalog-heading">
           <div>
-            <h2 id="catalog-title">The files you can download.</h2>
-            <p>Five desktop packages and one optional browser extension. Each file keeps its name, size and SHA-256 value beside it.</p>
+            <h2 id="catalog-title">Every package, in one place.</h2>
+            <p>Five desktop packages and one optional browser extension. Names, sizes, and SHA-256 values stay beside each file.</p>
           </div>
-          <a class="feed-link" id="latest-release-link" href="https://github.com/JAHURULNILL/ndm/releases/latest" target="_blank" rel="noopener noreferrer">GitHub releases <span aria-hidden="true">↗</span></a>
+          <a class="feed-link" id="latest-release-link" href="https://github.com/JAHURULNILL/ndm/releases/latest" target="_blank" rel="noopener noreferrer"><span id="latest-release-label">GitHub releases</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></a>
         </div>
         <div class="availability-note" id="release-status" data-status="static" role="status" aria-live="polite">
           <span class="availability-mark" aria-hidden="true"></span>
@@ -105,78 +148,67 @@
         </div>
 
         <div class="package-groups">
-          <section class="package-group" aria-labelledby="windows-group-title">
-            <div class="group-heading">
-              <h3 id="windows-group-title">Windows</h3>
-              <p>Windows 7 SP1, 8, 8.1, 10 and 11 · 32/64-bit</p>
-            </div>
+          <section class="package-group package-windows" aria-labelledby="windows-group-title">
+            <div class="group-heading"><h3 id="windows-group-title">Windows</h3><p>Windows 7 SP1, 8, 8.1, 10 and 11 · 32/64-bit</p></div>
             <article class="package-row">
               <div class="package-identity"><h4>Universal setup</h4><p>Includes 32-bit and 64-bit; selects the matching build.</p><code class="package-filename" data-filename="win_setup">NDM_2.3.1_setup.exe</code></div>
               <span class="package-size" data-size="win_setup">6.24 MB</span>
-              <a class="package-download" data-get="win_setup" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_setup.exe">Download <span class="sr-only">Windows universal setup</span><span aria-hidden="true">↗</span></a>
+              <a class="package-download" data-get="win_setup" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_setup.exe">Download <span class="sr-only">Windows universal setup</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
               <details class="hash-details"><summary>SHA-256</summary><div class="hash-copy-line"><code data-hash="win_setup">b5d28be8e4b9cd795fac2064f7b1001ec1063cb98b0540ed871253929bbe6155</code><button type="button" class="copy-hash" data-copy-hash="win_setup" aria-label="Copy SHA-256 for Windows universal setup">Copy</button><span class="copy-status" data-copy-status="win_setup" aria-live="polite"></span></div></details>
             </article>
             <article class="package-row">
               <div class="package-identity"><h4>Portable · 64-bit</h4><p>Run without installing.</p><code class="package-filename" data-filename="win">NDM_2.3.1_Windows_Portable.zip</code></div>
               <span class="package-size" data-size="win">5.68 MB</span>
-              <a class="package-download" data-get="win" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Windows_Portable.zip">Download <span class="sr-only">64-bit Windows portable</span><span aria-hidden="true">↗</span></a>
+              <a class="package-download" data-get="win" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Windows_Portable.zip">Download <span class="sr-only">64-bit Windows portable</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
               <details class="hash-details"><summary>SHA-256</summary><div class="hash-copy-line"><code data-hash="win">405af6814bebd2598c569820878987d3f3fde9da782255e0c9b5143b53799da5</code><button type="button" class="copy-hash" data-copy-hash="win" aria-label="Copy SHA-256 for Windows 64-bit portable package">Copy</button><span class="copy-status" data-copy-status="win" aria-live="polite"></span></div></details>
             </article>
             <article class="package-row">
               <div class="package-identity"><h4>Portable · 32-bit</h4><p>Run without installing.</p><code class="package-filename" data-filename="win_x86">NDM_2.3.1_Windows_Portable_x86.zip</code></div>
               <span class="package-size" data-size="win_x86">4.90 MB</span>
-              <a class="package-download" data-get="win_x86" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Windows_Portable_x86.zip">Download <span class="sr-only">32-bit Windows portable</span><span aria-hidden="true">↗</span></a>
+              <a class="package-download" data-get="win_x86" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Windows_Portable_x86.zip">Download <span class="sr-only">32-bit Windows portable</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
               <details class="hash-details"><summary>SHA-256</summary><div class="hash-copy-line"><code data-hash="win_x86">7f8e94d4b07537763443b0314b056785c2a94f9c6eae0c9f4ce40c31ef98994d</code><button type="button" class="copy-hash" data-copy-hash="win_x86" aria-label="Copy SHA-256 for Windows 32-bit portable package">Copy</button><span class="copy-status" data-copy-status="win_x86" aria-live="polite"></span></div></details>
             </article>
           </section>
 
-          <section class="package-group" aria-labelledby="linux-group-title">
-            <div class="group-heading">
-              <h3 id="linux-group-title">Linux · Debian family</h3>
-              <p>x86-64 · Debian, Ubuntu, Zorin OS, Linux Mint and derivatives</p>
-            </div>
+          <section class="package-group package-linux" aria-labelledby="linux-group-title">
+            <div class="group-heading"><h3 id="linux-group-title">Linux · Debian family</h3><p>x86-64 · Debian, Ubuntu, Zorin OS, Linux Mint and derivatives</p></div>
             <article class="package-row">
               <div class="package-identity"><h4>Debian package</h4><p>Install the .deb on a supported x86-64 distribution.</p><code class="package-filename" data-filename="deb">NDM_2.3.1_amd64.deb</code></div>
               <span class="package-size" data-size="deb">2.98 MB</span>
-              <a class="package-download" data-get="deb" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_amd64.deb">Download <span class="sr-only">Linux Debian package</span><span aria-hidden="true">↗</span></a>
+              <a class="package-download" data-get="deb" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_amd64.deb">Download <span class="sr-only">Linux Debian package</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
               <details class="hash-details"><summary>SHA-256</summary><div class="hash-copy-line"><code data-hash="deb">571a77589bd0b2f2989f74572a6649a00de3546ad259f9022ea723224ebb628f</code><button type="button" class="copy-hash" data-copy-hash="deb" aria-label="Copy SHA-256 for Linux Debian package">Copy</button><span class="copy-status" data-copy-status="deb" aria-live="polite"></span></div></details>
             </article>
             <article class="package-row">
               <div class="package-identity"><h4>Portable · video components included</h4><p>Portable archive for Debian-family distributions.</p><code class="package-filename" data-filename="linux_portable">NDM_2.3.1_Linux_Portable.tar.xz</code></div>
               <span class="package-size" data-size="linux_portable">119.8 MB</span>
-              <a class="package-download" data-get="linux_portable" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Linux_Portable.tar.xz">Download <span class="sr-only">Linux portable tarball</span><span aria-hidden="true">↗</span></a>
-              <details class="hash-details"><summary>SHA-256</summary><div class="hash-copy-line"><code data-hash="linux_portable">3307ceb0870d84ac41ff909a0cc052989d5da0168e681110548e4c20003dd2a0</code><button type="button" class="copy-hash" data-copy-hash="linux_portable" aria-label="Copy SHA-256 for Linux portable package">Copy</button><span class="copy-status" data-copy-status="linux_portable" aria-live="polite"></span></div></details>
+              <a class="package-download" data-get="linux_portable" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/NDM_2.3.1_Linux_Portable.tar.xz">Download <span class="sr-only">Linux portable tarball</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+              <details class="hash-details"><summary>SHA-256</summary><div class="hash-copy-line"><code data-hash="linux_portable">3307ceb0870d84ac41ff909a0cc052989d5da0168e681110548e4c20003dd2a0</code><button type="button" class="copy-hash" data-copy-hash="linux_portable" aria-label="Copy SHA-256 for Linux portable tarball">Copy</button><span class="copy-status" data-copy-status="linux_portable" aria-live="polite"></span></div></details>
             </article>
           </section>
 
           <section class="package-group extension-group" aria-labelledby="extension-group-title">
-            <div class="group-heading">
-              <h3 id="extension-group-title">Optional browser companion</h3>
-              <p>Separate Chrome and Firefox extension · not the desktop app</p>
-            </div>
+            <div class="group-heading"><h3 id="extension-group-title">Optional browser companion</h3><p>Separate Chrome and Firefox extension · not the desktop app</p></div>
             <article class="package-row">
               <div class="package-identity"><h4>NDM browser extension</h4><p>Sends browser downloads to NDM and can carry the link’s cookies with the entry.</p><code class="package-filename" data-filename="ext">ndm-extension-2.3.1.zip</code></div>
               <span class="package-size" data-size="ext">107 KB</span>
-              <a class="package-download" data-get="ext" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/ndm-extension-2.3.1.zip">Download <span class="sr-only">Chrome and Firefox extension</span><span aria-hidden="true">↗</span></a>
+              <a class="package-download" data-get="ext" href="https://github.com/JAHURULNILL/ndm/releases/download/v2.3.1/ndm-extension-2.3.1.zip">Download <span class="sr-only">Chrome and Firefox extension</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 14 14 4M6 4h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
               <details class="hash-details"><summary>SHA-256</summary><div class="hash-copy-line"><code data-hash="ext">44aeb8ce63252a041eee4a3056ce1a4552094fa14941c387922720d6de67694f</code><button type="button" class="copy-hash" data-copy-hash="ext" aria-label="Copy SHA-256 for the browser extension">Copy</button><span class="copy-status" data-copy-status="ext" aria-live="polite"></span></div></details>
             </article>
           </section>
         </div>
 
-        <div class="catalog-footnote"><span class="calibration-dot" aria-hidden="true"></span><p>Finished files are not overwritten. If a signed link expires, NDM can refresh the address on the existing download entry.</p></div>
+        <div class="catalog-footnote"><span class="footnote-mark" aria-hidden="true">!</span><p>Finished files are not overwritten. If a signed link expires, NDM can refresh the address on the existing download entry.</p></div>
       </div>
     </section>
 
     <section class="mechanism-section shell" id="mechanism" aria-labelledby="mechanism-title">
       <div class="mechanism-heading">
-        <h2 id="mechanism-title">Progress gets a place of its own.</h2>
+        <div><h2 id="mechanism-title">Progress has a place to return to.</h2></div>
         <p>NDM writes parallel file blocks to their final offsets and journals progress as it happens. A restart can continue from the recorded byte—without temporary part files or a later merge pass for a regular download.</p>
       </div>
       <div class="mechanism-layout">
         <figure class="mechanism-proof">
-          <div class="mechanism-frame">
-            <img src="%%IMG:hero%%" alt="Authentic NDM download-status window showing completion, resume capability and progress by connection" width="620" height="698" loading="lazy">
-          </div>
+          <div class="mechanism-frame"><img src="%%IMG:hero%%" alt="Authentic NDM download-status window showing completion, resume capability and progress by connection" width="620" height="698" loading="lazy"></div>
           <figcaption>From the NDM desktop app. The download view records status and progress for each connection.</figcaption>
         </figure>
         <ol class="mechanism-steps">
@@ -190,35 +222,20 @@
     <section class="capabilities-section" id="features" aria-labelledby="capabilities-title">
       <div class="shell capabilities-shell">
         <div class="capabilities-heading">
-          <h2 id="capabilities-title">A download desk for more than one file.</h2>
+          <div><h2 id="capabilities-title">Made for the whole download queue.</h2></div>
           <p>NDM is a desktop app. Paste a URL, drop a file on the basket, or use the optional browser handoff—then shape the queue around the way you work.</p>
         </div>
         <div class="capability-ledger">
-          <article class="capability-row">
-            <h3>Bring browser downloads along.</h3>
-            <p>The optional Chrome and Firefox extension hands a browser download to NDM and can include the link’s cookies. You can also paste a URL or use the drop basket.</p>
-            <span class="capability-mark">Chrome · Firefox</span>
-          </article>
-          <article class="capability-row">
-            <h3>Keep speed and timing in hand.</h3>
-            <p>Set per-download or global speed limits and quotas, then schedule named queues for later.</p>
-            <span class="capability-mark">Limits · queues</span>
-          </article>
-          <article class="capability-row">
-            <h3>Keep the rest organized.</h3>
-            <p>Use Site Grabber, categories, and hash-verified self-updates. In the desktop app, video downloads use browser-provided stream data first, then yt-dlp; ffmpeg merges split picture and sound when needed.</p>
-            <span class="capability-mark">Grabber · video · updates</span>
-          </article>
+          <article class="capability-row"><h3>Bring browser downloads along.</h3><p>The optional Chrome and Firefox extension hands a browser download to NDM and can include the link’s cookies. You can also paste a URL or use the drop basket.</p><span class="capability-mark">Chrome · Firefox</span></article>
+          <article class="capability-row"><h3>Keep speed and timing in hand.</h3><p>Set per-download or global speed limits and quotas, then schedule named queues for later.</p><span class="capability-mark">Limits · queues</span></article>
+          <article class="capability-row"><h3>Keep the rest organized.</h3><p>Use Site Grabber, categories, and hash-verified self-updates. In the desktop app, video downloads use browser-provided stream data first, then yt-dlp; ffmpeg merges split picture and sound when needed.</p><span class="capability-mark">Grabber · video · updates</span></article>
         </div>
         <p class="desktop-note">Video downloads happen in the NDM desktop app, not on this page.</p>
       </div>
     </section>
 
     <section class="details-section shell" aria-labelledby="details-title">
-      <div class="details-heading">
-        <h2 id="details-title">Release notes and verification.</h2>
-        <p>The package list stays open and easy to scan. The long-form details are here when you need them.</p>
-      </div>
+      <div class="details-heading"><h2 id="details-title">Release notes and verification.</h2><p>Use the published SHA-256 values to verify a file. Version-specific notes stay attached to their release.</p></div>
       <div class="detail-accordions">
         <details class="detail-accordion">
           <summary><span>Verify a downloaded file</span><span class="accordion-mark" aria-hidden="true"></span></summary>
@@ -251,13 +268,11 @@ sha256sum NDM_2.3.1_amd64.deb</code></pre>
 
     <section class="faq-section" id="questions" aria-labelledby="questions-title">
       <div class="shell faq-shell">
-        <div class="faq-heading">
-          <h2 id="questions-title">A few things worth knowing.</h2>
-          <p>Clear answers before you install.</p>
-        </div>
+        <div class="faq-heading"><h2 id="questions-title">A few things worth knowing.</h2><p>Clear answers before you install.</p></div>
         <div class="faq-list">
           <details class="faq-item"><summary>Is NDM free?</summary><p>Yes. NDM is free and open source under MIT OR Apache-2.0. There is no paid tier, account, or feature locked behind sign-in.</p></details>
           <details class="faq-item"><summary>Which systems are supported?</summary><p>Windows 7 SP1, 8, 8.1, 10, and 11 in 32-bit and 64-bit. The universal installer selects the matching build. Linux support is for x86-64 Debian-family distributions, through the .deb or portable tarball.</p></details>
+          <details class="faq-item"><summary>Is the browser extension a separate app?</summary><p>No. The optional Chrome and Firefox extension sends browser downloads to the installed NDM desktop app. You can also paste a URL or use the drop basket without the extension.</p></details>
           <details class="faq-item"><summary>What information leaves my machine?</summary><p>Your downloads go to the servers you choose. NDM checks its release feed and sends one anonymous install-count request with no identifier attached. There is no telemetry and no sign-in.</p></details>
         </div>
       </div>
@@ -267,11 +282,7 @@ sha256sum NDM_2.3.1_amd64.deb</code></pre>
   <footer class="site-footer">
     <div class="shell footer-inner">
       <div class="footer-identity"><a href="#top" class="footer-brand">NDM</a><p>Nill Download Manager · Free and open source under MIT OR Apache-2.0.</p></div>
-      <nav aria-label="Footer links">
-        <a href="https://github.com/JAHURULNILL/ndm" target="_blank" rel="noopener noreferrer">Source</a>
-        <a href="https://github.com/JAHURULNILL/ndm/releases/latest" target="_blank" rel="noopener noreferrer">Latest source release</a>
-        <a href="https://github.com/JAHURULNILL/ndm/releases" target="_blank" rel="noopener noreferrer">All releases</a>
-      </nav>
+      <nav aria-label="Footer links"><a href="https://github.com/JAHURULNILL/ndm" target="_blank" rel="noopener noreferrer">Source</a><a href="https://github.com/JAHURULNILL/ndm/releases/latest" target="_blank" rel="noopener noreferrer">Latest source release</a><a href="https://github.com/JAHURULNILL/ndm/releases" target="_blank" rel="noopener noreferrer">All releases</a></nav>
     </div>
   </footer>
 

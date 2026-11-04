@@ -1,4 +1,4 @@
-/* NDM website behavior: platform choice, complete-release refresh, honest fallback, hash copying. */
+/* NDM website behavior: recommended route, complete-release refresh, honest fallback, hash copying. */
 (function () {
   'use strict';
 
@@ -7,7 +7,6 @@
   var RELEASE_PAGE_PATH = '/JAHURULNILL/ndm/releases/tag/';
   var PACKAGE_KEYS = ['win_setup', 'win', 'win_x86', 'deb', 'linux_portable', 'ext'];
   var BUNDLED_VERSION = '2.3.1';
-  var selectedPlatform = 'windows';
 
   function safeReleaseUrl(value) {
     if (typeof value !== 'string') { return null; }
@@ -67,98 +66,32 @@
 
   function setLatestReleaseLink(release) {
     var link = document.getElementById('latest-release-link');
+    var label = document.getElementById('latest-release-label');
     var href = release && safeReleasePageUrl(release.html_url);
+    var version = versionFromTag(release && release.tag_name);
     if (link && href) {
       link.href = href;
-      link.textContent = 'GitHub release v' + (versionFromTag(release.tag_name) || '') + ' ↗';
+      if (label) { label.textContent = version ? 'GitHub release v' + version : 'GitHub release'; }
     }
   }
 
-  function findPackageLink(key) {
-    return document.querySelector('.package-row [data-get="' + key + '"]');
-  }
-
-  function findPackageValue(attribute, key) {
-    var node = document.querySelector('[data-' + attribute + '="' + key + '"]');
-    return node ? node.textContent.trim() : '';
-  }
-
-  function syncSelectedPackage() {
-    if (selectedPlatform === 'windows') {
-      choosePlatform('windows', false);
-    } else if (selectedPlatform === 'linux') {
-      choosePlatform('linux', false);
-    }
-  }
-
-  function choosePlatform(platform, announce) {
-    var buttons = document.querySelectorAll('[data-platform-choice]');
-    buttons.forEach(function (button) {
-      button.setAttribute('aria-pressed', button.getAttribute('data-platform-choice') === platform ? 'true' : 'false');
+  function markRecommendedRoute(platform) {
+    var routes = document.querySelectorAll('[data-route-platform]');
+    routes.forEach(function (route) {
+      var recommended = route.getAttribute('data-route-platform') === platform;
+      route.setAttribute('data-recommended', recommended ? 'true' : 'false');
+      var badge = route.querySelector('.route-recommendation');
+      if (badge) { badge.hidden = !recommended; }
     });
 
-    var title = document.getElementById('selected-build-kind');
-    var note = document.getElementById('selected-build-note');
-    var button = document.getElementById('hero-download');
-    var buttonLabel = document.getElementById('hero-download-label');
-    var size = document.getElementById('selected-file-size');
-    var filename = document.getElementById('selected-file-name');
-    var alternate = document.getElementById('alternate-package');
     var status = document.getElementById('platform-status');
-
-    if (!button || !buttonLabel || !title || !note) { return; }
-
-    var mainKey;
-    var alternateKey;
+    if (!status) { return; }
     if (platform === 'windows') {
-      selectedPlatform = 'windows';
-      mainKey = 'win_setup';
-      alternateKey = 'win';
-      title.textContent = 'Universal installer';
-      note.textContent = 'Includes 32-bit and 64-bit; installs the matching build.';
-      buttonLabel.textContent = 'Download for Windows';
-      if (alternate) { alternate.textContent = 'Prefer portable? Get the 64-bit ZIP'; }
-      if (status && announce) { status.textContent = 'Windows selected. The universal installer supports 32-bit and 64-bit.'; }
+      status.textContent = 'Windows detected. The Windows installer is marked; Linux and browser-extension downloads are still available.';
     } else if (platform === 'linux') {
-      selectedPlatform = 'linux';
-      mainKey = 'deb';
-      alternateKey = 'linux_portable';
-      title.textContent = 'Debian package';
-      note.textContent = 'For Debian-family Linux distributions on x86-64.';
-      buttonLabel.textContent = 'Download for Linux';
-      if (alternate) { alternate.textContent = 'Prefer portable? Get the tar.xz package'; }
-      if (status && announce) { status.textContent = 'Linux selected. NDM supports Debian-family distributions on x86-64.'; }
+      status.textContent = 'Linux detected. The Debian-family package is marked; Windows and browser-extension downloads are still available.';
     } else {
-      selectedPlatform = null;
-      title.textContent = 'Choose Windows or Linux';
-      note.textContent = 'Linux downloads are for Debian-family x86-64 systems.';
-      buttonLabel.textContent = 'See all downloads';
-      button.href = '#downloads';
-      button.removeAttribute('data-get');
-      if (size) { size.textContent = ''; }
-      if (filename) { filename.textContent = ''; }
-      if (alternate) {
-        alternate.href = '#downloads';
-        alternate.removeAttribute('data-get');
-        alternate.textContent = 'Browse all five desktop packages and the optional extension';
-      }
-      if (status && announce) { status.textContent = 'Choose a supported desktop platform or browse the packages below.'; }
-      return;
-    }
-
-    var primary = findPackageLink(mainKey);
-    if (primary) {
-      button.href = primary.href;
-      button.setAttribute('data-get', mainKey);
-    }
-    if (size) { size.textContent = findPackageValue('size', mainKey); }
-    if (filename) { filename.textContent = findPackageValue('filename', mainKey); }
-    if (alternate) {
-      var alternateLink = findPackageLink(alternateKey);
-      if (alternateLink) {
-        alternate.href = alternateLink.href;
-        alternate.setAttribute('data-get', alternateKey);
-      }
+      status.textContent = 'Choose Windows, Linux, or the optional browser extension. All download routes remain visible.';
     }
   }
 
@@ -213,7 +146,6 @@
         node.textContent = digest;
       });
     });
-    syncSelectedPackage();
     setReleaseStatus('Downloadable package set refreshed from GitHub release v' + version + '.', 'complete');
     return true;
   }
@@ -306,13 +238,7 @@
   document.querySelectorAll('[data-copy-hash]').forEach(function (button) {
     button.addEventListener('click', function () { copyHash(button); });
   });
-  document.querySelectorAll('[data-platform-choice]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      choosePlatform(button.getAttribute('data-platform-choice'), true);
-    });
-  });
 
-  selectedPlatform = detectPlatform();
-  choosePlatform(selectedPlatform, false);
+  markRecommendedRoute(detectPlatform());
   refreshReleaseMetadata();
 })();
