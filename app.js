@@ -6,7 +6,7 @@
   var RELEASE_PATH = '/JAHURULNILL/ndm/releases/download/';
   var RELEASE_PAGE_PATH = '/JAHURULNILL/ndm/releases/tag/';
   var PACKAGE_KEYS = ['win_setup', 'win', 'win_x86', 'deb', 'linux_portable', 'ext'];
-  var BUNDLED_VERSION = '2.3.1';
+  var BUNDLED_VERSION = '2.3.2';
 
   function safeReleaseUrl(value) {
     if (typeof value !== 'string') { return null; }
